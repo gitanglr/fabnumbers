@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maths Challenge - Login</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:linear-gradient(135deg,#e8f4ff,#fff7e6);color:#222;min-height:100vh}
+.container{max-width:850px;margin:auto;padding:18px}.card{background:#fff;border-radius:20px;padding:24px;margin:18px 0;box-shadow:0 5px 20px rgba(0,0,0,.12)}
+.login{max-width:500px;margin:55px auto;text-align:center}h1{font-size:clamp(28px,7vw,40px);margin:8px}h2{margin-top:0}.sub,.small{color:#666}
+input{width:100%;padding:14px;font-size:18px;border:2px solid #aaa;border-radius:10px;margin:7px 0 12px}
+button{border:0;border-radius:10px;padding:13px 22px;font-size:17px;font-weight:bold;cursor:pointer;margin-top:10px}
+.primary{background:#2878d4;color:#fff;width:100%}.logout{background:#777;color:#fff}.err{color:#b00020;font-weight:bold;min-height:24px}.hidden{display:none!important}
+.head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:18px 0}.stat{background:#f3f3f3;border-radius:12px;padding:13px;text-align:center}
+.num{font-size:25px;font-weight:bold;display:block;margin-top:5px}.hist{padding:10px;border-bottom:1px solid #ddd}
+.datehead{font-size:18px;font-weight:bold;background:#eef7ff;padding:10px;border-radius:10px;margin-top:12px}
+.note{background:#eef7ff;padding:14px;border-radius:12px;margin-top:15px;line-height:1.5}
+@media(max-width:600px){.container{padding:10px}.card{padding:18px}.stats{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div id="loginScreen" class="card login">
+<div style="font-size:55px">🧠</div><h1>Maths Challenge</h1>
+<div class="sub">Maths + English Comprehension</div>
+<input id="username" placeholder="Username" autocomplete="username">
+<input id="password" type="password" placeholder="Password" autocomplete="current-password">
+<div id="loginError" class="err"></div>
+<button class="primary" onclick="login()">🔐 Login</button>
+<p class="small">Demo login: student / maths123</p>
+</div>
+
+<div id="dashboard" class="hidden">
+<div class="card">
+<div class="head"><div><h2>Welcome, <span id="welcomeName"></span>! 👋</h2>
+<div class="small">Your learning dashboard</div></div>
+<button class="logout" onclick="logout()">Logout</button></div>
+
+<div class="stats">
+<div class="stat">Logins<span class="num" id="loginCount">0</span></div>
+<div class="stat">Quiz Attempts<span class="num" id="quizCount">0</span></div>
+<div class="stat">Best Score<span class="num" id="bestScore">—</span></div>
+<div class="stat">Average<span class="num" id="averageScore">0%</span></div>
+</div>
+
+<button class="primary" onclick="startQuiz()">🚀 Start Today's Quiz</button>
+<div class="note"><strong>Today's quiz:</strong> Loaded from <strong>quiz.html</strong>.
+You can replace <strong>quiz.html</strong> with a new quiz every day without changing this page.</div>
+</div>
+
+<div class="card">
+<h3>📅 Quiz Attempts by Date</h3>
+<div class="small">Every completed attempt is recorded. Multiple attempts on the same date are shown separately.</div>
+<div id="history"></div>
+</div>
+</div>
+</div>
+
+<script>
+const USERS={student:"maths123"};
+const STORAGE_KEY="mathsQuizPortalData";
+const SESSION_KEY="mathsQuizCurrentUser";
+
+function getData(){return JSON.parse(localStorage.getItem(STORAGE_KEY)||"{}")}
+function saveData(data){localStorage.setItem(STORAGE_KEY,JSON.stringify(data))}
+
+function login(){
+ const username=document.getElementById("username").value.trim();
+ const password=document.getElementById("password").value;
+ if(USERS[username]&&USERS[username]===password){
+  const data=getData();
+  if(!data[username]) data[username]={logins:0,quizzes:[]};
+  data[username].logins++;
+  saveData(data);
+  sessionStorage.setItem(SESSION_KEY,username);
+  showDashboard();
+ }else document.getElementById("loginError").textContent="❌ Incorrect username or password.";
+}
+
+function showDashboard(){
+ document.getElementById("loginScreen").classList.add("hidden");
+ document.getElementById("dashboard").classList.remove("hidden");
+ const username=sessionStorage.getItem(SESSION_KEY);
+ if(!username){logout();return}
+ document.getElementById("welcomeName").textContent=username;
+ updateDashboard();
+}
+
+function updateDashboard(){
+ const username=sessionStorage.getItem(SESSION_KEY);
+ const data=getData();
+ const user=data[username]||{logins:0,quizzes:[]};
+ const scores=user.quizzes||[];
+
+ document.getElementById("loginCount").textContent=user.logins;
+ document.getElementById("quizCount").textContent=scores.length;
+
+ if(scores.length){
+  const percentages=scores.map(x=>100*(x.score/(x.total||10)));
+  const bestIndex=percentages.indexOf(Math.max(...percentages));
+  document.getElementById("bestScore").textContent=
+    scores[bestIndex].score+"/"+(scores[bestIndex].total||10);
+  document.getElementById("averageScore").textContent=
+    Math.round(percentages.reduce((a,b)=>a+b,0)/percentages.length)+"%";
+ }else{
+  document.getElementById("bestScore").textContent="—";
+  document.getElementById("averageScore").textContent="0%";
+ }
+
+ renderHistory(scores);
+}
+
+function renderHistory(scores){
+ const history=document.getElementById("history");
+
+ if(!scores.length){
+  history.innerHTML="<p class='small'>No completed quizzes yet.</p>";
+  return;
+ }
+
+ const groups={};
+
+ scores.forEach((item,index)=>{
+  const date=getDatePart(item.date);
+  if(!groups[date]) groups[date]=[];
+  groups[date].push({item:item,index:index});
+ });
+
+ const dates=Object.keys(groups).reverse();
+
+ history.innerHTML=dates.map(date=>{
+  const attempts=groups[date];
+  let h="<div class='datehead'>📅 "+escapeHtml(date)+
+        " — "+attempts.length+
+        (attempts.length===1?" attempt":" attempts")+"</div>";
+
+  attempts.forEach((entry,i)=>{
+   const x=entry.item;
+   const total=x.total||10;
+   h+="<div class='hist'>"+
+      "<strong>Attempt "+(i+1)+"</strong> — "+
+      "<strong>"+x.score+"/"+total+"</strong>"+
+      " &nbsp; ("+(x.correct||0)+" correct, "+(x.wrong||0)+" wrong)"+
+      "<br><span class='small'>"+escapeHtml(x.date||"")+"</span>"+
+      "</div>";
+  });
+  return h;
+ }).join("");
+}
+
+function getDatePart(dateText){
+ if(!dateText)return"Unknown date";
+ return String(dateText).split(",")[0];
+}
+
+function escapeHtml(text){
+ const div=document.createElement("div");
+ div.textContent=text;
+ return div.innerHTML;
+}
+
+function startQuiz(){window.location.href="./quiz.html"}
+
+function logout(){
+ sessionStorage.removeItem(SESSION_KEY);
+ document.getElementById("dashboard").classList.add("hidden");
+ document.getElementById("loginScreen").classList.remove("hidden");
+ document.getElementById("username").value="";
+ document.getElementById("password").value="";
+ document.getElementById("loginError").textContent="";
+}
+
+document.getElementById("password").addEventListener("keydown",e=>{
+ if(e.key==="Enter")login();
+});
+</script>
+</body>
+</html>
