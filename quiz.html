@@ -3,119 +3,497 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Today's Maths & Logic Quiz</title>
+<title>Maths & English Challenge</title>
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(135deg,#e8f4ff,#fff7e6);color:#222;min-height:100vh}
-.container{max-width:850px;margin:auto;padding:15px}.card{background:#fff;border-radius:20px;padding:24px;margin:15px 0;box-shadow:0 5px 20px rgba(0,0,0,.12)}
-.header{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}h1{font-size:clamp(27px,6vw,38px);margin:5px 0}.small{color:#666}
-.progress{font-weight:bold;margin:18px 0}.question{font-size:clamp(19px,4vw,25px);line-height:1.55;margin:20px 0}
-input{width:100%;padding:14px;font-size:20px;border:2px solid #aaa;border-radius:10px;margin:8px 0 12px}
-button{border:0;border-radius:10px;padding:13px 20px;font-size:17px;font-weight:bold;cursor:pointer;margin-top:8px}.primary{background:#2878d4;color:#fff;width:100%}.next{background:#333;color:#fff;width:100%}.dashboard{background:#777;color:#fff}
-button:disabled,input:disabled{opacity:.5;cursor:not-allowed}.feedback{display:none;margin:16px 0;padding:15px;border-radius:12px;font-size:19px;font-weight:bold}
-.correct{background:#e4f8e8;color:#14752c}.wrong{background:#fff0e8;color:#b23b10}.score{text-align:center;font-size:32px;font-weight:bold;margin:20px}
-.review{padding:14px;margin:12px 0;border-radius:10px;border:1px solid #ddd;line-height:1.5}.right{background:#f2fff4;border-left:7px solid #28a745}.incorrect{background:#fff5f5;border-left:7px solid #dc3545}
-@media(max-width:600px){.container{padding:8px}.card{padding:18px}}
+*{box-sizing:border-box}
+body{
+    margin:0;
+    font-family:Arial,Helvetica,sans-serif;
+    background:linear-gradient(135deg,#e8f4ff,#fff7e6);
+    color:#222;
+    min-height:100vh;
+}
+.container{max-width:850px;margin:auto;padding:15px}
+.card{
+    background:white;
+    border-radius:20px;
+    padding:24px;
+    margin:15px 0;
+    box-shadow:0 5px 20px rgba(0,0,0,.12);
+}
+.header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+}
+h1{font-size:clamp(27px,6vw,38px);margin:5px 0}
+.small{color:#666}
+.progress{font-weight:bold;margin:18px 0}
+.section{
+    display:inline-block;
+    padding:7px 12px;
+    border-radius:20px;
+    background:#eee;
+    font-weight:bold;
+    margin-bottom:10px;
+}
+.question{
+    font-size:clamp(19px,4vw,25px);
+    line-height:1.55;
+    margin:20px 0;
+}
+input{
+    width:100%;
+    padding:14px;
+    font-size:20px;
+    border:2px solid #aaa;
+    border-radius:10px;
+    margin:8px 0 12px;
+}
+button{
+    border:0;
+    border-radius:10px;
+    padding:13px 20px;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
+    margin-top:8px;
+}
+.primary{background:#2878d4;color:white;width:100%}
+.next{background:#333;color:white;width:100%}
+.dashboard{background:#777;color:white}
+button:disabled,input:disabled{opacity:.5;cursor:not-allowed}
+.feedback{
+    display:none;
+    margin:16px 0;
+    padding:15px;
+    border-radius:12px;
+    font-size:19px;
+    font-weight:bold;
+}
+.correct{background:#e4f8e8;color:#14752c}
+.wrong{background:#fff0e8;color:#b23b10}
+.score{text-align:center;font-size:32px;font-weight:bold;margin:20px}
+.review{
+    padding:14px;
+    margin:12px 0;
+    border-radius:10px;
+    border:1px solid #ddd;
+    line-height:1.5;
+}
+.right{background:#f2fff4;border-left:7px solid #28a745}
+.incorrect{background:#fff5f5;border-left:7px solid #dc3545}
+@media(max-width:600px){
+    .container{padding:8px}
+    .card{padding:18px}
+}
 </style>
 </head>
+
 <body>
 <div class="container">
+
 <div id="quizScreen" class="card">
-<div class="header"><div><h1>🧠 Maths & Logic Challenge</h1><div class="small">10 Questions • Comprehension + Logic + Calculation</div></div>
-<button class="dashboard" onclick="goDashboard()">Dashboard</button></div>
-<div id="progress" class="progress"></div><div id="question" class="question"></div>
+
+<div class="header">
+<div>
+<h1>🧠 Maths & English Challenge</h1>
+<div class="small">20 Questions • Logic + Comprehension</div>
+</div>
+<button class="dashboard" onclick="goDashboard()">Dashboard</button>
+</div>
+
+<div id="section" class="section"></div>
+<div id="progress" class="progress"></div>
+<div id="question" class="question"></div>
+
 <label><strong>Your answer:</strong></label>
-<input id="answer" type="text" inputmode="decimal" placeholder="Type your answer">
-<button id="checkBtn" class="primary" onclick="checkAnswer()">Check Answer</button>
+
+<input id="answer" type="text" placeholder="Type your answer">
+
+<button id="checkBtn" class="primary" onclick="checkAnswer()">
+Check Answer
+</button>
+
 <div id="feedback" class="feedback"></div>
-<button id="nextBtn" class="next" onclick="nextQuestion()" disabled>Next ➜</button>
+
+<button id="nextBtn" class="next" onclick="nextQuestion()" disabled>
+Next ➜
+</button>
+
 </div>
+
 <div id="resultScreen" class="card" style="display:none"></div>
+
 </div>
+
 <script>
+
 const QUESTIONS = [
-{question: 'There are 5 cricket teams in a school tournament. Each team plays every other team exactly once. How many matches are played altogether?', answer: 10},
-{question: 'Asha has some stickers. She gives 7 stickers to Ravi and then receives 5 stickers from Meena. She now has 18 stickers. How many stickers did Asha have at the beginning?', answer: 20},
-{question: "A shop has a 'buy 2, get 1 free' offer on notebooks. Rahul needs 9 notebooks. How many notebooks does he need to pay for?", answer: 6},
-{question: 'A school bell rings every 20 minutes. It first rings at 8:00 AM. At what time will it ring for the fifth time after 8:00 AM? Enter the hour and minutes as HHMM.', answer: 940},
-{question: 'There are 24 students in a class. One-fourth of them bring lunch from home. Of the remaining students, half buy lunch from the school canteen. How many students do not bring lunch from home and also do not buy lunch from the canteen?', answer: 9},
-{question: 'A train has 6 coaches. Each coach has 48 seats. On a particular journey, 37 seats are empty. How many passengers are travelling on the train?', answer: 251},
-{question: 'Meena thinks of a number. She multiplies it by 3 and then adds 7. The answer is 34. What number did she think of?', answer: 9},
-{question: 'A farmer has chickens and cows. Altogether there are 10 animals and 28 legs. How many cows are there?', answer: 4},
-{question: 'A school has 4 rows of desks with 6 desks in each row. Three students sit at each desk. During a test, 5 students are absent. How many students are actually taking the test?', answer: 67},
-{question: 'Two angles are supplementary, meaning they add up to 180°. The larger angle is 20° more than twice the smaller angle. What is the smaller angle?', answer: 53}
+{type:'number',question:'There are 5 cricket teams in a school tournament. Each team plays every other team exactly once. How many matches are played altogether?',answer:10},
+{type:'number',question:'Asha has some stickers. She gives 7 stickers to Ravi and then receives 5 stickers from Meena. She now has 18 stickers. How many stickers did Asha have at the beginning?',answer:20},
+{type:'number',question:"A shop has a 'buy 2, get 1 free' offer on notebooks. Rahul needs 9 notebooks. How many notebooks does he need to pay for?",answer:6},
+{type:'number',question:'A school bell rings every 20 minutes. It first rings at 8:00 AM. At what time will it ring for the fifth time after 8:00 AM? Enter the time as HHMM.',answer:940},
+{type:'number',question:'There are 24 students in a class. One-fourth bring lunch from home. Of the remaining students, half buy lunch from the school canteen. How many students do not bring lunch from home and also do not buy lunch from the canteen?',answer:9},
+{type:'number',question:'A train has 6 coaches. Each coach has 48 seats. On a particular journey, 37 seats are empty. How many passengers are travelling on the train?',answer:251},
+{type:'number',question:'Meena thinks of a number. She multiplies it by 3 and then adds 7. The answer is 34. What number did she think of?',answer:9},
+{type:'number',question:'A farmer has chickens and cows. Altogether there are 10 animals and 28 legs. How many cows are there?',answer:4},
+{type:'number',question:'A school has 4 rows of desks with 6 desks in each row. Three students sit at each desk. During a test, 5 students are absent. How many students are actually taking the test?',answer:67},
+{type:'number',question:'Two angles are supplementary, meaning they add up to 180°. The larger angle is 20° more than twice the smaller angle. What is the smaller angle?',answer:53},
+{type:'text',question:'Riya woke up early because her school had a sports day. She packed a water bottle and a banana before leaving home. Why did Riya wake up early?',accepted:['sports day', 'because her school had a sports day', 'for sports day']},
+{type:'text',question:'Arun had ₹100. He bought a storybook for ₹65 and a pencil for ₹10. How much money did he have left?',accepted:['25']},
+{type:'text',question:'The school garden was dry after several weeks without rain. The students filled buckets with water and watered the plants every morning. What were the students trying to do?',accepted:['water the plants', 'to water the plants', 'help the plants', 'save the plants']},
+{type:'text',question:'Maya placed an umbrella in her school bag before leaving home. The sky was dark and cloudy. Why did she probably take the umbrella?',accepted:['because it might rain', 'because it may rain', 'rain', 'it might rain']},
+{type:'text',question:'Vikram reached the railway station at 8:30 AM. His train was scheduled to leave at 9:00 AM. How much time did he have before the train left?',accepted:['30']},
+{type:'text',question:'Neha found a wallet on the classroom floor. She did not keep it. Instead, she gave it to her teacher. What quality did Neha show?',accepted:['honesty', 'honest', 'honesty and responsibility', 'responsibility']},
+{type:'text',question:'Rahul studied for his maths test for one hour every evening for five days. How many hours did he study altogether?',accepted:['5']},
+{type:'text',question:'A small shop was crowded because it was raining outside. Many people stopped there to buy umbrellas. Why was the shop crowded?',accepted:['people wanted to buy umbrellas', 'people were buying umbrellas', 'rain', 'it was raining']},
+{type:'text',question:"Priya's mother asked her to buy milk, bread and eggs from the shop. Priya returned with milk, bread and eggs, but also bought chocolate without asking. Which item was not on her mother's list?",accepted:['chocolate']},
+{type:'text',question:'The class teacher announced that the library would be closed on Monday but open again on Tuesday. On which day could the students visit the library again?',accepted:['tuesday', 'Tuesday']}
 ];
 
-const STORAGE_KEY="mathsQuizPortalData", SESSION_KEY="mathsQuizCurrentUser";
-let currentQuestion=0, correct=0, wrong=0, results=[];
+const STORAGE_KEY = "mathsQuizPortalData";
+const SESSION_KEY = "mathsQuizCurrentUser";
 
-function getData(){return JSON.parse(localStorage.getItem(STORAGE_KEY)||"{}");}
-function saveData(data){localStorage.setItem(STORAGE_KEY,JSON.stringify(data));}
-function getUser(){return sessionStorage.getItem(SESSION_KEY);}
+let currentQuestion = 0;
+let correct = 0;
+let wrong = 0;
+let results = [];
+
+function getData(){
+    return JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+}
+
+function saveData(data){
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+}
+
+function getUser(){
+    return sessionStorage.getItem(SESSION_KEY);
+}
+
+function normalise(text){
+    return text
+        .toLowerCase()
+        .trim()
+        .replace(/[.,!?]/g,"")
+        .replace(/\s+/g," ");
+}
 
 function showQuestion(){
- const q=QUESTIONS[currentQuestion];
- document.getElementById("progress").textContent="Question "+(currentQuestion+1)+" of "+QUESTIONS.length;
- document.getElementById("question").textContent=q.question;
- const box=document.getElementById("answer");
- box.value=""; box.disabled=false; box.focus();
- document.getElementById("checkBtn").disabled=false;
- document.getElementById("nextBtn").disabled=true;
- document.getElementById("nextBtn").textContent=currentQuestion===QUESTIONS.length-1?"See Final Result 🏆":"Next ➜";
- const f=document.getElementById("feedback"); f.style.display="none"; f.innerHTML=""; f.className="feedback";
+
+    const q = QUESTIONS[currentQuestion];
+
+    document.getElementById("progress").textContent =
+        "Question " + (currentQuestion + 1) +
+        " of " + QUESTIONS.length;
+
+    document.getElementById("section").textContent =
+        currentQuestion < 10
+        ? "🔢 Maths & Logic"
+        : "📖 English Comprehension";
+
+    document.getElementById("question").textContent =
+        q.question;
+
+    const box = document.getElementById("answer");
+
+    box.value = "";
+    box.disabled = false;
+    box.type = q.type === "number" ? "text" : "text";
+    box.inputMode = q.type === "number" ? "decimal" : "text";
+    box.placeholder =
+        q.type === "number"
+        ? "Type your answer"
+        : "Type your answer in words";
+
+    box.focus();
+
+    document.getElementById("checkBtn").disabled = false;
+    document.getElementById("nextBtn").disabled = true;
+
+    document.getElementById("nextBtn").textContent =
+        currentQuestion === QUESTIONS.length - 1
+        ? "See Final Result 🏆"
+        : "Next ➜";
+
+    const feedback = document.getElementById("feedback");
+
+    feedback.style.display = "none";
+    feedback.innerHTML = "";
+    feedback.className = "feedback";
 }
 
 function checkAnswer(){
- const box=document.getElementById("answer"), typed=box.value.trim();
- if(typed===""){alert("Please enter your answer first.");box.focus();return;}
- const userAnswer=Number(typed), correctAnswer=QUESTIONS[currentQuestion].answer;
- box.disabled=true; document.getElementById("checkBtn").disabled=true;
- const f=document.getElementById("feedback"); f.style.display="block";
- if(!Number.isNaN(userAnswer)&&userAnswer===correctAnswer){
-   correct++; results.push({answer:typed,correct:true});
-   f.className="feedback correct"; f.innerHTML="🎉 Congratulations! Your answer is correct!";
- }else{
-   wrong++; results.push({answer:typed,correct:false});
-   f.className="feedback wrong"; f.innerHTML="😊 Better luck next time!<br><br>The correct answer is: <strong>"+correctAnswer+"</strong>";
- }
- document.getElementById("nextBtn").disabled=false;
+
+    const box = document.getElementById("answer");
+    const typed = box.value.trim();
+
+    if(typed === ""){
+        alert("Please enter your answer first.");
+        box.focus();
+        return;
+    }
+
+    const q = QUESTIONS[currentQuestion];
+
+    let isCorrect = false;
+
+    if(q.type === "number"){
+
+        isCorrect =
+            !Number.isNaN(Number(typed)) &&
+            Number(typed) === q.answer;
+
+    }else{
+
+        const userText = normalise(typed);
+
+        isCorrect = q.accepted.some(function(answer){
+            return userText === normalise(answer);
+        });
+    }
+
+    box.disabled = true;
+    document.getElementById("checkBtn").disabled = true;
+
+    const feedback = document.getElementById("feedback");
+
+    feedback.style.display = "block";
+
+    if(isCorrect){
+
+        correct++;
+
+        results.push({
+            answer:typed,
+            correct:true
+        });
+
+        feedback.className = "feedback correct";
+
+        feedback.innerHTML =
+            "🎉 Congratulations! Your answer is correct!";
+
+    }else{
+
+        wrong++;
+
+        results.push({
+            answer:typed,
+            correct:false
+        });
+
+        /*
+         * IMPORTANT:
+         * The correct answer is deliberately NOT shown here.
+         * It will appear only on the final summary page.
+         */
+
+        feedback.className = "feedback wrong";
+
+        feedback.innerHTML =
+            "😊 Better luck next time!";
+    }
+
+    document.getElementById("nextBtn").disabled = false;
 }
 
 function nextQuestion(){
- if(currentQuestion<QUESTIONS.length-1){currentQuestion++;showQuestion();}
- else{finishQuiz();}
+
+    if(currentQuestion < QUESTIONS.length - 1){
+
+        currentQuestion++;
+
+        showQuestion();
+
+    }else{
+
+        finishQuiz();
+    }
 }
 
 function finishQuiz(){
- const username=getUser();
- if(!username){alert("Your login session has expired. Please log in again.");window.location.href="index.html";return;}
- const data=getData();
- if(!data[username])data[username]={logins:0,quizzes:[]};
- if(!data[username].quizzes)data[username].quizzes=[];
- data[username].quizzes.push({score:correct,correct:correct,wrong:wrong,total:QUESTIONS.length,date:new Date().toLocaleString()});
- saveData(data); showResult();
+
+    const username = getUser();
+
+    if(!username){
+
+        alert("Your login session has expired. Please log in again.");
+
+        window.location.href = "index.html";
+
+        return;
+    }
+
+    const data = getData();
+
+    if(!data[username]){
+
+        data[username] = {
+            logins:0,
+            quizzes:[]
+        };
+    }
+
+    if(!data[username].quizzes){
+
+        data[username].quizzes = [];
+    }
+
+    data[username].quizzes.push({
+
+        score:correct,
+
+        correct:correct,
+
+        wrong:wrong,
+
+        total:QUESTIONS.length,
+
+        date:new Date().toLocaleString()
+    });
+
+    saveData(data);
+
+    showResult();
+}
+
+function getCorrectAnswer(q){
+
+    if(q.type === "number"){
+        return String(q.answer);
+    }
+
+    return q.accepted[0];
 }
 
 function showResult(){
- document.getElementById("quizScreen").style.display="none";
- const result=document.getElementById("resultScreen"); result.style.display="block";
- let html="<h2 style='text-align:center'>🏆 Quiz Completed!</h2><div class='score'>Score: "+correct+" / "+QUESTIONS.length+"</div><p style='text-align:center'>✅ Correct: <strong>"+correct+"</strong> &nbsp;&nbsp; ❌ Wrong: <strong>"+wrong+"</strong></p><hr><h3>📋 Question Review</h3>";
- QUESTIONS.forEach(function(q,index){
-   const r=results[index];
-   html+="<div class='review "+(r.correct?"right":"incorrect")+"'><strong>Question "+(index+1)+"</strong><br>"+escapeHtml(q.question)+"<br><br>Your answer: <strong>"+escapeHtml(r.answer)+"</strong><br>Correct answer: <strong>"+q.answer+"</strong><br>"+(r.correct?"✅ Correct":"❌ Wrong")+"</div>";
- });
- html+="<button class='primary' onclick='goDashboard()'>📊 Back to Dashboard</button>";
- result.innerHTML=html; window.scrollTo({top:0,behavior:"smooth"});
+
+    document.getElementById("quizScreen").style.display =
+        "none";
+
+    const result =
+        document.getElementById("resultScreen");
+
+    result.style.display = "block";
+
+    let html =
+        "<h2 style='text-align:center'>🏆 Quiz Completed!</h2>" +
+
+        "<div class='score'>" +
+        "Score: " + correct +
+        " / " + QUESTIONS.length +
+        "</div>" +
+
+        "<p style='text-align:center'>" +
+        "✅ Correct: <strong>" + correct +
+        "</strong> &nbsp;&nbsp;" +
+
+        "❌ Wrong: <strong>" + wrong +
+        "</strong>" +
+
+        "</p><hr>" +
+
+        "<h3>📋 Final Question Review</h3>" +
+
+        "<p><em>The correct answers are shown here only after completing the quiz.</em></p>";
+
+    QUESTIONS.forEach(function(q,index){
+
+        const r = results[index];
+
+        html +=
+
+            "<div class='review " +
+            (r.correct ? "right" : "incorrect") +
+            "'>" +
+
+            "<strong>Question " +
+            (index + 1) +
+            "</strong> — " +
+            (index < 10 ? "Maths & Logic" : "English") +
+
+            "<br><br>" +
+
+            escapeHtml(q.question) +
+
+            "<br><br>" +
+
+            "Your answer: <strong>" +
+            escapeHtml(r.answer) +
+            "</strong><br>" +
+
+            "Correct answer: <strong>" +
+            escapeHtml(getCorrectAnswer(q)) +
+            "</strong><br>" +
+
+            (r.correct
+                ? "✅ Correct"
+                : "❌ Wrong") +
+
+            "</div>";
+    });
+
+    html +=
+
+        "<button class='primary' " +
+        "onclick='goDashboard()'>" +
+
+        "📊 Back to Dashboard" +
+
+        "</button>";
+
+    result.innerHTML = html;
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
 }
 
-function escapeHtml(text){const div=document.createElement("div");div.textContent=text;return div.innerHTML;}
-function goDashboard(){window.location.href="index.html";}
+function escapeHtml(text){
 
-document.getElementById("answer").addEventListener("keydown",function(event){
- if(event.key==="Enter"&&!document.getElementById("checkBtn").disabled)checkAnswer();
+    const div =
+        document.createElement("div");
+
+    div.textContent = text;
+
+    return div.innerHTML;
+}
+
+function goDashboard(){
+
+    window.location.href = "index.html";
+}
+
+document.getElementById("answer")
+.addEventListener("keydown",function(event){
+
+    if(
+        event.key === "Enter" &&
+        !document.getElementById("checkBtn").disabled
+    ){
+
+        checkAnswer();
+    }
+
 });
 
-if(!getUser()){alert("Please log in first.");window.location.href="index.html";}
-else{showQuestion();}
+if(!getUser()){
+
+    alert("Please log in first.");
+
+    window.location.href = "index.html";
+
+}else{
+
+    showQuestion();
+}
+
 </script>
+
 </body>
 </html>
