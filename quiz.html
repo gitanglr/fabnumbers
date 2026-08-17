@@ -16,13 +16,17 @@ h1{font-size:clamp(27px,6vw,38px);margin:5px 0}.small{color:#666}
 .question{font-size:clamp(19px,4vw,25px);line-height:1.55;margin:20px 0}
 input{width:100%;padding:14px;font-size:20px;border:2px solid #aaa;border-radius:10px;margin:8px 0 12px}
 button{border:0;border-radius:10px;padding:13px 20px;font-size:17px;font-weight:bold;cursor:pointer;margin-top:8px}
-.primary{background:#2878d4;color:#fff;width:100%}.next{background:#333;color:#fff;width:100%}.dashboard{background:#777;color:#fff}
+.primary{background:#2878d4;color:#fff;width:100%}
+.next{background:#333;color:#fff;width:100%}
+.dashboard{background:#777;color:#fff}
 button:disabled,input:disabled{opacity:.5;cursor:not-allowed}
 .feedback{display:none;margin:16px 0;padding:15px;border-radius:12px;font-size:19px;font-weight:bold}
-.correct{background:#e4f8e8;color:#14752c}.wrong{background:#fff0e8;color:#b23b10}
+.correct{background:#e4f8e8;color:#14752c}
+.wrong{background:#fff0e8;color:#b23b10}
 .score{text-align:center;font-size:32px;font-weight:bold;margin:20px}
 .review{padding:14px;margin:12px 0;border-radius:10px;border:1px solid #ddd;line-height:1.5}
-.right{background:#f2fff4;border-left:7px solid #28a745}.incorrect{background:#fff5f5;border-left:7px solid #dc3545}
+.right{background:#f2fff4;border-left:7px solid #28a745}
+.incorrect{background:#fff5f5;border-left:7px solid #dc3545}
 @media(max-width:600px){.container{padding:8px}.card{padding:18px}}
 </style>
 </head>
@@ -55,36 +59,47 @@ button:disabled,input:disabled{opacity:.5;cursor:not-allowed}
 
 <script>
 const QUESTIONS = [
-{type:'number',question:'The school canteen has 96 idlis in the morning. It sells 38 before the first break and 27 during lunch. How many idlis are left?',answer:31},
-{type:'number',question:'A bus starts its journey with 28 passengers. At the first stop, 9 get off and 13 get on. At the second stop, 6 get off. How many passengers are on the bus now?',answer:26},
-{type:'number',question:'A cricket coach has 72 tennis balls and puts them equally into 8 bags. He gives 3 bags to one practice group. How many balls does that group receive?',answer:27},
-{type:'number',question:'A number is increased by 15 and then the result is doubled. The final answer is 50. What was the original number?',answer:10},
-{type:'number',question:'Four friends share a ₹360 restaurant bill equally. One friend had already paid ₹40 towards the bill. How much should that friend pay now?',answer:50},
-{type:'number',question:'A school starts at 8:30 AM. A student reaches 15 minutes before school starts. She spends 10 minutes talking to her friends before going to class. At what time does she enter the classroom? Enter as HHMM.',answer:825},
-{type:'number',question:'There are 30 questions in a quiz. Kavya answers 24 correctly. Each correct answer gives 2 marks, and each wrong answer loses 1 mark. What is her final score?',answer:42},
-{type:'number',question:'A rectangular playground is 12 metres long and 7 metres wide. A student walks once around the boundary. How many metres does the student walk?',answer:38},
-{type:'number',question:'A shopkeeper has ₹1,000. He buys 4 school bags at ₹180 each. He then receives a discount of ₹50 on the total purchase. How much money does he have left?',answer:330},
-{type:'number',question:'Two angles form a straight line. One angle is 4 times the other angle. What is the smaller angle?',answer:36},
-{type:'text',question:'Every Friday, Anil helps his grandfather arrange the books in a small neighbourhood library. One Friday, he notices that several books are lying on the floor. He puts them back on the shelves before leaving. Why did Anil put the books back?',accepted:['because he wanted to keep the library tidy', 'to keep the library tidy', 'the books were on the floor', 'to arrange the books']},
-{type:'text',question:'Meera packed a raincoat, an umbrella and a pair of waterproof shoes before leaving for school. The weather forecast predicted heavy rain in the afternoon. What does this tell us about Meera?',accepted:['she was preparing for the rain', 'she prepared for rain', 'she expected rain', 'she was prepared for bad weather']},
-{type:'text',question:'The class was asked to bring one plant for a science activity. Nitin forgot his plant but remembered a packet of seeds. His teacher said that the seeds could still be used for the activity. What did Nitin remember to bring?',accepted:['a packet of seeds', 'seeds', 'a packet of seed']},
-{type:'text',question:'Sana wanted to finish her homework before watching her favourite television programme. She completed the difficult questions first and then finished the easier ones. Why did Sana do the difficult questions first?',accepted:['so that the difficult work would be finished first', 'to finish the difficult work first', 'because the difficult questions needed more attention']},
-{type:'text',question:"The school notice said: 'Students who have registered for the drawing competition must report to Room 12 at 2:00 PM.' Where should registered drawing-competition students go?",accepted:['Room 12', 'room 12']},
-{type:'text',question:'Ravi had planned to play cricket after school, but dark clouds appeared and his mother told him that a storm was expected. Ravi decided to stay home and read a book instead. Why did Ravi change his plan?',accepted:['because a storm was expected', 'because of the expected storm', 'because the weather was going to be bad']},
-{type:'text',question:'A teacher gave Priya three tasks: return the library books, submit her science project and sharpen her pencils. Priya returned the books and submitted the project but forgot the pencils. Which task did Priya not complete?',accepted:['sharpen her pencils', 'sharpen the pencils', 'sharpening her pencils']},
-{type:'text',question:'During a class trip, the teacher told the students to stay with their assigned groups. When the group reached the museum, everyone checked that all group members were present before entering. Why did they do this?',accepted:['to make sure nobody was missing', 'to ensure everyone was together', 'to check that all group members were present']},
-{type:'text',question:'Kabir had two choices for reaching school. The shorter road was closed because of construction, so he took the longer road. Why did Kabir take the longer road?',accepted:['because the shorter road was closed', 'the shorter road was closed', 'because of construction on the shorter road']},
-{type:'text',question:"The teacher said, 'You may use the computer after you finish your homework.' Rahul finished his homework at 5:10 PM. According to the teacher's instruction, what must Rahul do before using the computer?",accepted:['finish his homework', 'complete his homework']}
+{type:'number',question:'During a school assembly, 7 classes each line up with 18 students. Five students are absent from the assembly. How many students are actually standing in the lines?',answer:121},
+{type:'number',question:'A fruit seller has 84 oranges. He packs them equally into 6 baskets. Before selling them, he adds 3 more oranges to each basket. How many oranges are in each basket now?',answer:17},
+{type:'number',question:'Priya saves ₹25 every week. She already has ₹140 saved. How much will she have after saving for 6 more weeks?',answer:290},
+{type:'number',question:'A school bus travels 18 km from the school to a sports ground. It makes the same journey back to school. Then it travels another 7 km to a nearby village. How many kilometres does the bus travel altogether?',answer:43},
+{type:'number',question:'A box contains red, blue and green marbles. There are 12 red marbles, 8 blue marbles and 15 green marbles. If 5 marbles are taken out without replacing them, how many marbles remain?',answer:30},
+{type:'number',question:'A movie at the community hall starts at 3:25 PM and lasts 1 hour 45 minutes. At what time does it finish? Enter as HHMM.',answer:510},
+{type:'number',question:'A teacher writes the numbers 2, 5, 8, 11, 14 on the board. Each number is 3 more than the previous one. What is the next number?',answer:17},
+{type:'number',question:'A rectangular classroom has 9 rows of chairs with 5 chairs in each row. The teacher removes 7 chairs because they are broken. How many usable chairs remain?',answer:38},
+{type:'number',question:'A shop gives ₹20 change from a ₹200 note after a customer buys two identical items. What is the price of each item?',answer:90},
+{type:'number',question:'Two angles are complementary, so together they make 90°. One angle is 18° larger than the other. What is the smaller angle?',answer:36},
+{type:'text',question:'On the way to school, Aarav noticed that the road near the market was unusually crowded. He later saw a large truck being unloaded there. What most likely caused the extra traffic?',accepted:['the truck was being unloaded', 'a truck was being unloaded', 'the unloading of the truck']},
+{type:'text',question:'The science teacher asked the students to bring a transparent bottle for an experiment. Leela brought a metal bottle instead. Which important instruction did Leela not follow?',accepted:['bring a transparent bottle', 'bring a transparent bottle for the experiment', 'use a transparent bottle']},
+{type:'text',question:"Dev wanted to buy a new cricket bat, but he first checked the money in his savings box. He decided to wait another month because he did not have enough money. What was Dev's reason for waiting?",accepted:['he did not have enough money', 'he needed more money', 'he had not saved enough money']},
+{type:'text',question:'The principal announced that the school playground would be closed during the afternoon because workers were repairing the surface. When could students use the playground again?',accepted:['after the repairs', 'when the repairs were finished', 'after the workers finished repairing it']},
+{type:'text',question:'During a group project, four students divided the work. One collected information, another made the drawings, a third wrote the explanation, and the fourth prepared the presentation. Why did they divide the work?',accepted:['to share the work', 'to divide the work among them', 'so each student had a task']},
+{type:'text',question:'Ananya put her unfinished art project safely inside her cupboard before leaving home. When she returned, she found it exactly where she had left it. Where had Ananya put her art project?',accepted:['inside her cupboard', 'in her cupboard']},
+{type:'text',question:'The teacher gave the class ten minutes to read a passage and then asked questions about it. Rohan read the passage twice before answering. What was Rohan trying to do?',accepted:['understand the passage', 'understand it better', 'make sure he understood the passage']},
+{type:'text',question:"A water bottle was found in the school corridor. The name 'Suresh' was written on it. The teacher announced this information so that Suresh could collect it. What was the purpose of writing the name on the bottle?",accepted:['to identify the owner', 'to show who owned the bottle', 'to identify Suresh as the owner']},
+{type:'text',question:'Kiran usually cycles to his tuition class. One evening, his bicycle had a flat tyre, so he walked instead. Why did Kiran walk to tuition?',accepted:['his bicycle had a flat tyre', 'because his bicycle had a flat tyre', 'his bicycle tyre was flat']},
+{type:'text',question:'The library rules say that students may borrow two books for seven days. Isha borrowed two books on Monday. What is the maximum number of books she can borrow under this rule?',accepted:['two', '2', 'two books']}
 ];
 
 const STORAGE_KEY="mathsQuizPortalData";
 const SESSION_KEY="mathsQuizCurrentUser";
 
-let currentQuestion=0, correct=0, wrong=0, results=[];
+let currentQuestion=0;
+let correct=0;
+let wrong=0;
+let results=[];
 
-function getData(){return JSON.parse(localStorage.getItem(STORAGE_KEY)||"{}");}
-function saveData(data){localStorage.setItem(STORAGE_KEY,JSON.stringify(data));}
-function getUser(){return sessionStorage.getItem(SESSION_KEY);}
+function getData(){
+    return JSON.parse(localStorage.getItem(STORAGE_KEY)||"{}");
+}
+
+function saveData(data){
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(data));
+}
+
+function getUser(){
+    return sessionStorage.getItem(SESSION_KEY);
+}
 
 function normalise(text){
     return text.toLowerCase().trim()
@@ -108,13 +123,18 @@ function showQuestion(){
     box.disabled=false;
     box.type="text";
     box.inputMode=q.type==="number"?"decimal":"text";
-    box.placeholder=q.type==="number"?"Type your answer":"Type your answer in words";
+    box.placeholder=q.type==="number"
+        ?"Type your answer"
+        :"Type your answer in words";
     box.focus();
 
     document.getElementById("checkBtn").disabled=false;
     document.getElementById("nextBtn").disabled=true;
+
     document.getElementById("nextBtn").textContent =
-        currentQuestion===QUESTIONS.length-1 ? "See Final Result 🏆" : "Next ➜";
+        currentQuestion===QUESTIONS.length-1
+        ?"See Final Result 🏆"
+        :"Next ➜";
 
     const f=document.getElementById("feedback");
     f.style.display="none";
@@ -136,10 +156,13 @@ function checkAnswer(){
     let isCorrect=false;
 
     if(q.type==="number"){
-        isCorrect=!Number.isNaN(Number(typed)) && Number(typed)===q.answer;
+        isCorrect=!Number.isNaN(Number(typed)) &&
+                  Number(typed)===q.answer;
     }else{
         const user=normalise(typed);
-        isCorrect=q.accepted.some(a=>user===normalise(a));
+        isCorrect=q.accepted.some(function(a){
+            return user===normalise(a);
+        });
     }
 
     box.disabled=true;
@@ -183,8 +206,13 @@ function finishQuiz(){
 
     const data=getData();
 
-    if(!data[username]) data[username]={logins:0,quizzes:[]};
-    if(!data[username].quizzes) data[username].quizzes=[];
+    if(!data[username]){
+        data[username]={logins:0,quizzes:[]};
+    }
+
+    if(!data[username].quizzes){
+        data[username].quizzes=[];
+    }
 
     data[username].quizzes.push({
         score:correct,
@@ -213,8 +241,9 @@ function showResult(){
         "<div class='score'>Score: "+correct+" / 20</div>"+
         "<p style='text-align:center'>"+
         "✅ Correct: <strong>"+correct+"</strong> &nbsp;&nbsp;"+
-        "❌ Wrong: <strong>"+wrong+"</strong></p>"+
-        "<hr><h3>📋 Final Question Review</h3>"+
+        "❌ Wrong: <strong>"+wrong+"</strong>"+
+        "</p><hr>"+
+        "<h3>📋 Final Question Review</h3>"+
         "<p><em>Correct answers are shown only here, after the quiz is completed.</em></p>";
 
     QUESTIONS.forEach(function(q,index){
@@ -237,6 +266,7 @@ function showResult(){
     html+="<button class='primary' onclick='goDashboard()'>📊 Back to Dashboard</button>";
 
     result.innerHTML=html;
+
     window.scrollTo({top:0,behavior:"smooth"});
 }
 
@@ -251,7 +281,8 @@ function goDashboard(){
 }
 
 document.getElementById("answer").addEventListener("keydown",function(e){
-    if(e.key==="Enter" && !document.getElementById("checkBtn").disabled){
+    if(e.key==="Enter" &&
+       !document.getElementById("checkBtn").disabled){
         checkAnswer();
     }
 });
