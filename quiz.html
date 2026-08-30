@@ -1,1 +1,530 @@
-<!DOCTYPE html><html><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Quiz</title><style>body{font-family:Arial;background:#eef6ff;margin:0}.c{max-width:850px;margin:auto;padding:20px}.card{background:#fff;border-radius:16px;padding:20px;box-shadow:0 4px 16px #0002}button,input{width:100%;padding:12px;margin-top:10px;font-size:18px}.fb{display:none;padding:12px;border-radius:8px;margin:10px 0}.ok{background:#dff5e3}.bad{background:#fde7e7}.rev{border:1px solid #ddd;padding:10px;margin:10px 0}</style></head><body><div class='c'><div id='q' class='card'><h2>🧠 Maths & English Challenge</h2><div id='sec'></div><div id='p'></div><div id='ques'></div><input id='ans'><button id='chk' onclick='check()'>Check Answer</button><div id='fb' class='fb'></div><button id='nxt' onclick='nextQ()' disabled>Next</button></div><div id='res' class='card' style='display:none'></div></div><script>const Q=[{"type": "number", "question": "A school has 8 classrooms. Each classroom has 24 desks. During an examination, 17 desks are not used. How many desks are being used?", "answer": 175}, {"type": "number", "question": "A vegetable vendor has 125 tomatoes. He puts 15 tomatoes aside for a restaurant and packs the rest equally into 5 crates. How many tomatoes are in each crate?", "answer": 22}, {"type": "number", "question": "Rohan has ₹500. He buys a geometry box for ₹145 and three pens costing ₹35 each. How much money does he have left?", "answer": 250}, {"type": "number", "question": "A train leaves Bengaluru at 6:45 AM and reaches Mysuru at 9:15 AM. How long is the journey? Give the answer in minutes.", "answer": 150}, {"type": "number", "question": "A number is multiplied by 4 and then 9 is subtracted. The result is 31. What is the number?", "answer": 10}, {"type": "number", "question": "A rectangular notice board is 10 metres long and 4 metres wide. A teacher wants to put a border around the entire board. How many metres of border are needed?", "answer": 28}, {"type": "number", "question": "A class collects 15 kg of old newspapers on Monday, 18 kg on Tuesday and 12 kg on Wednesday. They pack the newspapers into bags of 5 kg each. How many full bags can they make?", "answer": 9}, {"type": "number", "question": "A water tank contains 600 litres. In the morning, 175 litres are used. In the afternoon, twice as much water as was used in the morning is added to the tank. How many litres are in the tank then?", "answer": 775}, {"type": "number", "question": "A sequence begins 4, 7, 13, 22, 34. The amount added each time increases by 3. What is the next number?", "answer": 49}, {"type": "number", "question": "An angle measures 72°. A second angle is half of the first angle. A third angle is the remaining angle needed to make all three angles total 180°. What is the third angle?", "answer": 72}, {"type": "text", "question": "The school gardener planted new saplings near the entrance. He placed small sticks beside them and tied the plants gently to the sticks. Why did he use the sticks?", "accepted": ["to support the young plants", "to support the plants", "to help the young plants stand upright"]}, {"type": "text", "question": "The teacher announced that the art room would be available only after lunch because it was being cleaned in the morning. When could students use the art room?", "accepted": ["after lunch", "after lunchtime", "in the afternoon after lunch"]}, {"type": "text", "question": "Nisha noticed that her younger brother had left his lunch box at home. She took it to his school before his lunch break. Why did Nisha take the lunch box to school?", "accepted": ["because her brother had left it at home", "so her brother could have his lunch", "because her brother forgot his lunch box"]}, {"type": "text", "question": "A library book was due on Friday. On Thursday evening, Sameer put the book into his school bag so that he would remember to return it the next day. What was Sameer preparing to do?", "accepted": ["return the library book", "return the book", "take the book back to the library"]}, {"type": "text", "question": "The class was going on a nature walk. The teacher told everyone to wear comfortable shoes and carry a water bottle. Why were these instructions given?", "accepted": ["to prepare students for the nature walk", "because they would be walking outdoors", "to make the walk comfortable and safe"]}, {"type": "text", "question": "Pooja opened her notebook and saw that the last two pages were blank. She decided to use those pages for rough work instead of starting a new notebook. What did Pooja decide to use the blank pages for?", "accepted": ["rough work", "doing rough work"]}, {"type": "text", "question": "The school bus could not use its usual road because a bridge was being repaired. The driver took another road and reached school ten minutes late. Why was the bus late?", "accepted": ["because the bridge was being repaired", "because the usual road was closed", "because the bus had to take another road"]}, {"type": "text", "question": "During a group discussion, everyone listened while Farhan explained his idea. After he finished, the other students asked questions. What happened after Farhan explained his idea?", "accepted": ["the other students asked questions", "students asked questions", "the other students questioned him"]}, {"type": "text", "question": "Mina wanted to make a birthday card for her cousin. She chose coloured paper, scissors and glue from her craft box. What was Mina planning to make?", "accepted": ["a birthday card", "a card for her cousin"]}, {"type": "text", "question": "The notice outside the computer room said, 'Please switch off the monitor before leaving.' What should a student do before leaving the room?", "accepted": ["switch off the monitor", "turn off the monitor"]}];let i=0,c=0,w=0,R=[];const sec=document.getElementById('sec'),p=document.getElementById('p'),ques=document.getElementById('ques'),ans=document.getElementById('ans'),chk=document.getElementById('chk'),fb=document.getElementById('fb'),nxt=document.getElementById('nxt'),qdiv=document.getElementById('q'),res=document.getElementById('res');function norm(t){return t.toLowerCase().trim().replace(/[.,!?]/g,'').replace(/\s+/g,' ')}function show(){let q=Q[i];sec.textContent=i<10?'🔢 Maths & Logic':'📖 English';p.textContent='Question '+(i+1)+' of 20';ques.textContent=q.question;ans.value='';ans.disabled=false;chk.disabled=false;nxt.disabled=true;fb.style.display='none';fb.className='fb';nxt.textContent=i===19?'Finish Quiz':'Next';ans.focus();}function check(){let t=ans.value.trim();if(!t)return;let q=Q[i],ok=false;if(q.type==='number')ok=Number(t)===q.answer;else ok=q.accepted.some(a=>norm(a)===norm(t));ans.disabled=true;chk.disabled=true;fb.style.display='block';if(ok){c++;R.push({a:t,o:true});fb.className='fb ok';fb.textContent='🎉 Congratulations! Your answer is correct!';}else{w++;R.push({a:t,o:false});fb.className='fb bad';fb.textContent='😊 Better luck next time!';}nxt.disabled=false;}function nextQ(){if(i<19){i++;show();}else finish();}function finish(){qdiv.style.display='none';res.style.display='block';let h='<h2>🏆 Score: '+c+'/20</h2><p>Correct: '+c+' | Wrong: '+w+'</p>';Q.forEach((q,n)=>{let ca=q.type==='number'?q.answer:q.accepted[0];h+='<div class=rev><b>Q'+(n+1)+'</b><br>'+q.question+'<br><br>Your answer: <b>'+R[n].a+'</b><br>Correct answer: <b>'+ca+'</b><br>'+(R[n].o?'✅ Correct':'❌ Wrong')+'</div>';});res.innerHTML=h;}ans.addEventListener('keydown',e=>{if(e.key==='Enter'&&!chk.disabled)check();});show();</script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maths & English Challenge</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+    margin:0;
+    font-family:Arial,Helvetica,sans-serif;
+    background:linear-gradient(135deg,#e8f4ff,#fff7e6);
+    color:#222;
+    min-height:100vh;
+}
+
+.container{
+    max-width:850px;
+    margin:auto;
+    padding:15px;
+}
+
+.card{
+    background:#fff;
+    border-radius:20px;
+    padding:24px;
+    margin:15px 0;
+    box-shadow:0 5px 20px rgba(0,0,0,.12);
+}
+
+.header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+h1{
+    font-size:clamp(27px,6vw,38px);
+    margin:5px 0;
+}
+
+.small{color:#666;}
+
+.section{
+    display:inline-block;
+    padding:7px 12px;
+    border-radius:20px;
+    background:#eee;
+    font-weight:bold;
+    margin:12px 0;
+}
+
+.progress{
+    font-weight:bold;
+    margin:10px 0 18px;
+}
+
+.question{
+    font-size:clamp(19px,4vw,25px);
+    line-height:1.55;
+    margin:20px 0;
+}
+
+input{
+    width:100%;
+    padding:14px;
+    font-size:20px;
+    border:2px solid #aaa;
+    border-radius:10px;
+    margin:8px 0 12px;
+}
+
+button{
+    border:0;
+    border-radius:10px;
+    padding:13px 20px;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
+    margin-top:8px;
+}
+
+.primary{
+    background:#2878d4;
+    color:white;
+    width:100%;
+}
+
+.next{
+    background:#333;
+    color:white;
+    width:100%;
+}
+
+.dashboard{
+    background:#777;
+    color:white;
+}
+
+button:disabled,
+input:disabled{
+    opacity:.5;
+    cursor:not-allowed;
+}
+
+.feedback{
+    display:none;
+    margin:16px 0;
+    padding:15px;
+    border-radius:12px;
+    font-size:19px;
+    font-weight:bold;
+}
+
+.correct{
+    background:#e4f8e8;
+    color:#14752c;
+}
+
+.wrong{
+    background:#fff0e8;
+    color:#b23b10;
+}
+
+.score{
+    text-align:center;
+    font-size:32px;
+    font-weight:bold;
+    margin:20px;
+}
+
+.review{
+    padding:14px;
+    margin:12px 0;
+    border-radius:10px;
+    border:1px solid #ddd;
+    line-height:1.5;
+}
+
+.right{
+    background:#f2fff4;
+    border-left:7px solid #28a745;
+}
+
+.incorrect{
+    background:#fff5f5;
+    border-left:7px solid #dc3545;
+}
+
+@media(max-width:600px){
+    .container{padding:8px;}
+    .card{padding:18px;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div id="quizScreen" class="card">
+
+<div class="header">
+<div>
+<h1>🧠 Maths & English Challenge</h1>
+<div class="small">30 Questions • Maths • Comprehension • Vocabulary</div>
+</div>
+
+<button class="dashboard" onclick="goDashboard()">
+Dashboard
+</button>
+
+</div>
+
+<div id="section" class="section"></div>
+
+<div id="progress" class="progress"></div>
+
+<div id="question" class="question"></div>
+
+<label><strong>Your answer:</strong></label>
+
+<input
+id="answer"
+type="text"
+placeholder="Type your answer">
+
+<button
+id="checkBtn"
+class="primary"
+onclick="checkAnswer()">
+Check Answer
+</button>
+
+<div id="feedback" class="feedback"></div>
+
+<button
+id="nextBtn"
+class="next"
+onclick="nextQuestion()"
+disabled>
+Next ➜
+</button>
+
+</div>
+
+<div
+id="resultScreen"
+class="card"
+style="display:none">
+</div>
+
+</div>
+
+<script>
+
+const QUESTIONS = [
+/* ===========================
+   1–10 MATHS & LOGIC
+=========================== */
+
+{type:'number',question:'A school buys 15 packets of chalk. Each packet has 28 sticks. Teachers use 84 sticks. The remaining chalk is shared equally among 6 classrooms. How many sticks does each classroom receive?',answer:56},
+
+{type:'number',question:'A bus starts with 42 passengers. At Stop A, 15 get off and 18 get on. At Stop B, 9 get off and 7 get on. How many passengers are now on the bus?',answer:43},
+
+{type:'number',question:'Riya has ₹1200. She buys a school bag for ₹465 and 3 notebooks costing ₹58 each. How much money is left?',answer:561},
+
+{type:'number',question:'A water tank contains 850 litres. 275 litres are used. Later, 180 litres are added. How many litres are now in the tank?',answer:755},
+
+{type:'number',question:'Find the missing number: 11, 18, 29, 44, 63, ?',answer:86},
+
+{type:'number',question:'The perimeter of a rectangle is 96 m. Its length is 29 m. Find its width.',answer:19},
+
+{type:'number',question:'A cricket team scores 96 runs in the first 12 overs and 84 runs in the last 8 overs. What is the average runs per over for the entire innings?',answer:9},
+
+{type:'number',question:'A shop offers a 25% discount on a helmet costing ₹640. How much does the customer pay?',answer:480},
+
+{type:'number',question:'Three equal angles and one angle of 48° make 360°. Find each equal angle.',answer:104},
+
+{type:'number',question:'A baker makes 216 cookies and packs them equally into 9 boxes. Two boxes are sold. How many cookies remain?',answer:168},
+
+/* ===========================
+   11–20 READING COMPREHENSION
+=========================== */
+
+{type:'text',question:'Students participating in the debate competition must report to Room 14 by 8:20 AM. Where should they report?',accepted:['room 14']},
+
+{type:'text',question:'Arjun watered the plants every evening because his grandparents were away for a week. Why did he water the plants?',accepted:['to take care of the plants']},
+
+{type:'text',question:'The librarian wanted books returned before Friday. Why?',accepted:['so they could be counted']},
+
+{type:'text',question:'The football match was postponed because lightning was seen near the playground. Why?',accepted:['because of lightning']},
+
+{type:'text',question:'Maya completed her homework before watching television. What did Maya do first?',accepted:['homework']},
+
+{type:'text',question:'Science models must be labelled with the student name and class. What must every model have?',accepted:['student name and class']},
+
+{type:'text',question:'Kiran reached the station 20 minutes early. Why did he have enough time?',accepted:['he reached early']},
+
+{type:'text',question:'The teacher divided the class into groups of four. Why?',accepted:['so everyone could participate']},
+
+{type:'text',question:'A museum sign said photography is not allowed. What activity was not allowed?',accepted:['photography']},
+
+{type:'text',question:'The class collected newspapers to make paper bags. Why?',accepted:['to recycle them']},
+
+/* ===========================
+   21–30 VOCABULARY
+=========================== */
+
+{type:'text',question:'A person who writes books is called an ______.',accepted:['author']},
+
+{type:'text',question:'The opposite of borrow is ______.',accepted:['lend']},
+
+{type:'text',question:'A scientist who studies earthquakes is a ______.',accepted:['seismologist']},
+
+{type:'text',question:'To speak very softly is to ______.',accepted:['whisper']},
+
+{type:'text',question:'A journey made for pleasure is called a ______.',accepted:['tour']},
+
+{type:'text',question:'Something that can be trusted because it works correctly is ______.',accepted:['reliable']},
+
+{type:'text',question:'A person who flies an aeroplane is a ______.',accepted:['pilot']},
+
+{type:'text',question:'A person who spends money carefully is ______.',accepted:['thrifty']},
+
+{type:'text',question:'To examine something very carefully is to ______.',accepted:['inspect']},
+
+{type:'text',question:'A doctor who treats animals is a ______.',accepted:['veterinarian']}
+
+];
+/* ===========================
+   QUIZ ENGINE
+=========================== */
+
+let currentQuestion = 0;
+let score = 0;
+let userAnswers = [];
+
+const sectionEl = document.getElementById("section");
+const progressEl = document.getElementById("progress");
+const questionEl = document.getElementById("question");
+const answerEl = document.getElementById("answer");
+const feedbackEl = document.getElementById("feedback");
+const checkBtn = document.getElementById("checkBtn");
+const nextBtn = document.getElementById("nextBtn");
+
+function normalise(text){
+    return text.toLowerCase()
+               .trim()
+               .replace(/[.,!?]/g,"")
+               .replace(/\s+/g," ");
+}
+
+function loadQuestion(){
+
+    const q = QUESTIONS[currentQuestion];
+
+    if(currentQuestion < 10)
+        sectionEl.innerHTML = "🔢 Maths & Logic";
+    else if(currentQuestion < 20)
+        sectionEl.innerHTML = "📖 English Comprehension";
+    else
+        sectionEl.innerHTML = "📚 Vocabulary";
+
+    progressEl.innerHTML =
+        "Question " + (currentQuestion+1) + " of " + QUESTIONS.length;
+
+    questionEl.innerHTML = q.question;
+
+    answerEl.value="";
+    answerEl.disabled=false;
+
+    checkBtn.disabled=false;
+    nextBtn.disabled=true;
+
+    feedbackEl.style.display="none";
+
+    nextBtn.innerHTML =
+        (currentQuestion===QUESTIONS.length-1)
+        ? "Finish Quiz"
+        : "Next ➜";
+}
+
+function checkAnswer(){
+
+    const q = QUESTIONS[currentQuestion];
+    const user = answerEl.value.trim();
+
+    if(user===""){
+        alert("Please enter an answer.");
+        return;
+    }
+
+    let correct=false;
+
+    if(q.type==="number"){
+        correct = Number(user)===q.answer;
+    }else{
+        const u = normalise(user);
+        correct = q.accepted.some(a=>normalise(a)===u);
+    }
+
+    userAnswers.push({
+        answer:user,
+        correct:correct
+    });
+
+    answerEl.disabled=true;
+    checkBtn.disabled=true;
+
+    feedbackEl.style.display="block";
+
+    if(correct){
+        score++;
+        feedbackEl.className="feedback correct";
+        feedbackEl.innerHTML="🎉 Congratulations! Your answer is correct.";
+    }else{
+        feedbackEl.className="feedback wrong";
+        feedbackEl.innerHTML="😊 Better luck next time!";
+    }
+
+    nextBtn.disabled=false;
+}
+
+function nextQuestion(){
+
+    if(currentQuestion < QUESTIONS.length-1){
+        currentQuestion++;
+        loadQuestion();
+    }else{
+        showResults();
+    }
+}
+
+function showResults(){
+
+    document.getElementById("quizScreen").style.display="none";
+
+    const result = document.getElementById("resultScreen");
+    result.style.display="block";
+
+    saveAttempt();
+
+    let html = `
+        <h1>🏆 Quiz Complete!</h1>
+        <div class="score">${score} / ${QUESTIONS.length}</div>
+        <h2>Final Review</h2>
+    `;
+
+    QUESTIONS.forEach((q,index)=>{
+
+        const ua = userAnswers[index];
+        const correct =
+            q.type==="number"
+            ? q.answer
+            : q.accepted[0];
+
+        html += `
+        <div class="review ${ua.correct?'right':'incorrect'}">
+
+        <b>Question ${index+1}</b><br><br>
+
+        <b>${
+            index<10
+            ? 'Maths'
+            : index<20
+            ? 'Comprehension'
+            : 'Vocabulary'
+        }</b>
+
+        <p>${q.question}</p>
+
+        Your answer:
+        <b>${ua.answer}</b><br>
+
+        Correct answer:
+        <b>${correct}</b><br><br>
+
+        ${ua.correct?'✅ Correct':'❌ Wrong'}
+
+        </div>`;
+    });
+
+    html += `
+    <button class="primary"
+            onclick="location.reload()">
+        Attempt Again
+    </button>`;
+
+    result.innerHTML = html;
+}
+
+/* ===========================
+   DASHBOARD
+=========================== */
+
+function saveAttempt(){
+
+    const today = new Date().toISOString().slice(0,10);
+
+    const data =
+        JSON.parse(localStorage.getItem("quizAttempts") || "[]");
+
+    data.push({
+        date:today,
+        score:score,
+        total:QUESTIONS.length
+    });
+
+    localStorage.setItem(
+        "quizAttempts",
+        JSON.stringify(data)
+    );
+}
+
+function goDashboard(){
+
+    const data =
+      JSON.parse(localStorage.getItem("quizAttempts") || "[]");
+
+    if(data.length===0){
+        alert("No quiz attempts yet.");
+        return;
+    }
+
+    let msg = "QUIZ DASHBOARD\n\n";
+
+    const grouped={};
+
+    data.forEach(a=>{
+        if(!grouped[a.date]) grouped[a.date]=[];
+        grouped[a.date].push(a.score);
+    });
+
+    Object.keys(grouped).sort().reverse().forEach(d=>{
+        msg += d + "  (" + grouped[d].length + " attempt(s))\n";
+
+        grouped[d].forEach((s,i)=>{
+            msg += "   Attempt " + (i+1) +
+                   " : " + s + "/30\n";
+        });
+
+        msg += "\n";
+    });
+
+    alert(msg);
+}
+
+/* ===========================
+   START QUIZ
+=========================== */
+
+answerEl.addEventListener("keydown",function(e){
+
+    if(e.key==="Enter" && !checkBtn.disabled){
+        checkAnswer();
+    }
+
+});
+
+loadQuestion();
+
+</script>
+
+</body>
+</html>
