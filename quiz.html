@@ -218,80 +218,204 @@ style="display:none">
 
 <script>
 
+
 const QUESTIONS = [
+
 /* ===========================
    1–10 MATHS & LOGIC
 =========================== */
 
-{type:'number',question:'A school buys 15 packets of chalk. Each packet has 28 sticks. Teachers use 84 sticks. The remaining chalk is shared equally among 6 classrooms. How many sticks does each classroom receive?',answer:56},
+{
+type:'number',
+question:'A fruit shop has 18 baskets with 24 apples in each basket. It sells 156 apples. How many apples remain?',
+answer:276
+},
 
-{type:'number',question:'A bus starts with 42 passengers. At Stop A, 15 get off and 18 get on. At Stop B, 9 get off and 7 get on. How many passengers are now on the bus?',answer:43},
+{
+type:'number',
+question:'A train travels 145 km in the morning and 178 km in the afternoon. It then returns 39 km to the previous station. How many kilometres did it travel altogether?',
+answer:362
+},
 
-{type:'number',question:'Riya has ₹1200. She buys a school bag for ₹465 and 3 notebooks costing ₹58 each. How much money is left?',answer:561},
+{
+type:'number',
+question:'Neha has ₹950. She buys a dictionary for ₹275 and four pens costing ₹38 each. How much money is left?',
+answer:523
+},
 
-{type:'number',question:'A water tank contains 850 litres. 275 litres are used. Later, 180 litres are added. How many litres are now in the tank?',answer:755},
+{
+type:'number',
+question:'A classroom has 14 rows with 9 desks in each row. If 27 desks are removed for repairs, how many desks remain?',
+answer:99
+},
 
-{type:'number',question:'Find the missing number: 11, 18, 29, 44, 63, ?',answer:86},
+{
+type:'number',
+question:'Find the missing number: 6, 13, 27, 55, 111, ?',
+answer:223
+},
 
-{type:'number',question:'The perimeter of a rectangle is 96 m. Its length is 29 m. Find its width.',answer:19},
+{
+type:'number',
+question:'The perimeter of a square is 84 cm. Find the length of one side.',
+answer:21
+},
 
-{type:'number',question:'A cricket team scores 96 runs in the first 12 overs and 84 runs in the last 8 overs. What is the average runs per over for the entire innings?',answer:9},
+{
+type:'number',
+question:'A cricket player scores 48, 72, 65 and 55 runs in four matches. What is the average score?',
+answer:60
+},
 
-{type:'number',question:'A shop offers a 25% discount on a helmet costing ₹640. How much does the customer pay?',answer:480},
+{
+type:'number',
+question:'A bicycle costs ₹3600. During a sale, it is sold at a discount of ₹540. What is the selling price?',
+answer:3060
+},
 
-{type:'number',question:'Three equal angles and one angle of 48° make 360°. Find each equal angle.',answer:104},
+{
+type:'number',
+question:'One angle of a triangle is 47°. Another angle is 68°. Find the third angle.',
+answer:65
+},
 
-{type:'number',question:'A baker makes 216 cookies and packs them equally into 9 boxes. Two boxes are sold. How many cookies remain?',answer:168},
+{
+type:'number',
+question:'A baker prepares 420 biscuits and packs them equally into 12 tins. How many biscuits are in each tin?',
+answer:35
+},
 
 /* ===========================
-   11–20 READING COMPREHENSION
+   11–20 ENGLISH FILL IN THE BLANKS
 =========================== */
 
-{type:'text',question:'Students participating in the debate competition must report to Room 14 by 8:20 AM. Where should they report?',accepted:['room 14']},
+{
+type:'text',
+question:'We _____ a wonderful movie last Saturday.',
+accepted:['watched']
+},
 
-{type:'text',question:'Arjun watered the plants every evening because his grandparents were away for a week. Why did he water the plants?',accepted:['to take care of the plants']},
+{
+type:'text',
+question:'The children _____ happily in the playground every evening.',
+accepted:['play']
+},
 
-{type:'text',question:'The librarian wanted books returned before Friday. Why?',accepted:['so they could be counted']},
+{
+type:'text',
+question:'Please put your bag _____ the table.',
+accepted:['under']
+},
 
-{type:'text',question:'The football match was postponed because lightning was seen near the playground. Why?',accepted:['because of lightning']},
+{
+type:'text',
+question:'She is _____ honest student in our class.',
+accepted:['an']
+},
 
-{type:'text',question:'Maya completed her homework before watching television. What did Maya do first?',accepted:['homework']},
+{
+type:'text',
+question:'My father _____ tea every morning.',
+accepted:['drinks']
+},
 
-{type:'text',question:'Science models must be labelled with the student name and class. What must every model have?',accepted:['student name and class']},
+{
+type:'text',
+question:'The cat jumped _____ the wall.',
+accepted:['over']
+},
 
-{type:'text',question:'Kiran reached the station 20 minutes early. Why did he have enough time?',accepted:['he reached early']},
+{
+type:'text',
+question:'Ravi is the _____ boy in his family.',
+accepted:['youngest']
+},
 
-{type:'text',question:'The teacher divided the class into groups of four. Why?',accepted:['so everyone could participate']},
+{
+type:'text',
+question:'The teacher asked us _____ our books quietly.',
+accepted:['to open']
+},
 
-{type:'text',question:'A museum sign said photography is not allowed. What activity was not allowed?',accepted:['photography']},
+{
+type:'text',
+question:'It _____ heavily throughout the night yesterday.',
+accepted:['rained']
+},
 
-{type:'text',question:'The class collected newspapers to make paper bags. Why?',accepted:['to recycle them']},
+{
+type:'text',
+question:'The Earth _____ around the Sun.',
+accepted:['revolves']
+},
 
 /* ===========================
-   21–30 VOCABULARY
+   21–30 ONE-WORD VOCABULARY
 =========================== */
 
-{type:'text',question:'A person who writes books is called an ______.',accepted:['author']},
+{
+type:'text',
+question:'A person who paints pictures is called an ______.',
+accepted:['artist']
+},
 
-{type:'text',question:'The opposite of borrow is ______.',accepted:['lend']},
+{
+type:'text',
+question:'The opposite of noisy is ______.',
+accepted:['quiet']
+},
 
-{type:'text',question:'A scientist who studies earthquakes is a ______.',accepted:['seismologist']},
+{
+type:'text',
+question:'A person who teaches in a school is a ______.',
+accepted:['teacher']
+},
 
-{type:'text',question:'To speak very softly is to ______.',accepted:['whisper']},
+{
+type:'text',
+question:'A book of maps is called an ______.',
+accepted:['atlas']
+},
 
-{type:'text',question:'A journey made for pleasure is called a ______.',accepted:['tour']},
+{
+type:'text',
+question:'To move quickly on foot is to ______.',
+accepted:['run']
+},
 
-{type:'text',question:'Something that can be trusted because it works correctly is ______.',accepted:['reliable']},
+{
+type:'text',
+question:'A person who repairs shoes is a ______.',
+accepted:['cobbler']
+},
 
-{type:'text',question:'A person who flies an aeroplane is a ______.',accepted:['pilot']},
+{
+type:'text',
+question:'The opposite of difficult is ______.',
+accepted:['easy']
+},
 
-{type:'text',question:'A person who spends money carefully is ______.',accepted:['thrifty']},
+{
+type:'text',
+question:'A large area covered with trees is called a ______.',
+accepted:['forest']
+},
 
-{type:'text',question:'To examine something very carefully is to ______.',accepted:['inspect']},
+{
+type:'text',
+question:'A person who grows crops is a ______.',
+accepted:['farmer']
+},
 
-{type:'text',question:'A doctor who treats animals is a ______.',accepted:['veterinarian']}
+{
+type:'text',
+question:'The word meaning “very brave” is ______.',
+accepted:['courageous']
+}
 
 ];
+
+
 /* ===========================
    QUIZ ENGINE
 =========================== */
