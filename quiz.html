@@ -167,7 +167,7 @@ input:disabled{
 <div class="header">
 <div>
 <h1>🧠 Maths & English Challenge</h1>
-<div class="small">30 Questions • Maths • Comprehension • Vocabulary</div>
+<div class="small">380 Questions • Maths • Comprehension • Vocabulary</div>
 </div>
 
 <button class="dashboard" onclick="goDashboard()">
@@ -225,193 +225,141 @@ const QUESTIONS = [
    1–10 MATHS & LOGIC
 =========================== */
 
-{
-type:'number',
-question:'A fruit shop has 18 baskets with 24 apples in each basket. It sells 156 apples. How many apples remain?',
-answer:276
-},
+{type:'number',question:'A shop has 24 boxes with 18 chocolates in each box. It sells 156 chocolates. How many chocolates remain?',answer:276},
 
-{
-type:'number',
-question:'A train travels 145 km in the morning and 178 km in the afternoon. It then returns 39 km to the previous station. How many kilometres did it travel altogether?',
-answer:362
-},
+{type:'number',question:'A train travels 168 km in the morning and 132 km in the evening. How many kilometres did it travel altogether?',answer:300},
 
-{
-type:'number',
-question:'Neha has ₹950. She buys a dictionary for ₹275 and four pens costing ₹38 each. How much money is left?',
-answer:523
-},
+{type:'number',question:'A farmer has 96 mango trees. Each tree gives 25 mangoes. How many mangoes are produced?',answer:2400},
 
-{
-type:'number',
-question:'A classroom has 14 rows with 9 desks in each row. If 27 desks are removed for repairs, how many desks remain?',
-answer:99
-},
+{type:'number',question:'A rectangle is 18 m long and 12 m wide. Find its perimeter.',answer:60},
 
-{
-type:'number',
-question:'Find the missing number: 6, 13, 27, 55, 111, ?',
-answer:223
-},
+{type:'number',question:'Find the missing number: 8, 17, 35, 71, ?',answer:143},
 
-{
-type:'number',
-question:'The perimeter of a square is 84 cm. Find the length of one side.',
-answer:21
-},
+{type:'number',question:'A family spends ₹2450 on groceries and ₹875 on vegetables. What is the total amount spent?',answer:3325},
 
-{
-type:'number',
-question:'A cricket player scores 48, 72, 65 and 55 runs in four matches. What is the average score?',
-answer:60
-},
+{type:'number',question:'One angle of a triangle is 56° and another is 49°. Find the third angle.',answer:75},
 
-{
-type:'number',
-question:'A bicycle costs ₹3600. During a sale, it is sold at a discount of ₹540. What is the selling price?',
-answer:3060
-},
+{type:'number',question:'A water tank holds 950 litres. After using 285 litres, how much water remains?',answer:665},
 
-{
-type:'number',
-question:'One angle of a triangle is 47°. Another angle is 68°. Find the third angle.',
-answer:65
-},
+{type:'number',question:'A school has 18 classrooms with 32 students in each classroom. How many students are there altogether?',answer:576},
 
-{
-type:'number',
-question:'A baker prepares 420 biscuits and packs them equally into 12 tins. How many biscuits are in each tin?',
-answer:35
-},
+{type:'number',question:'A cricket player scores 45, 62, 51 and 58 runs. Find the average score.',answer:54},
 
 /* ===========================
-   11–20 ENGLISH FILL IN THE BLANKS
+   11–20 ENGLISH GRAMMAR
+   (ONE CORRECT ANSWER)
 =========================== */
 
-{
-type:'text',
-question:'We _____ a wonderful movie last Saturday.',
-accepted:['watched']
-},
+{type:'text',question:'She bought ___ orange from the market.',accepted:['an']},
 
-{
-type:'text',
-question:'The children _____ happily in the playground every evening.',
-accepted:['play']
-},
+{type:'text',question:'The baby ___ sleeping now.',accepted:['is']},
 
-{
-type:'text',
-question:'Please put your bag _____ the table.',
-accepted:['under']
-},
+{type:'text',question:'Birds fly ___ the sky.',accepted:['in']},
 
-{
-type:'text',
-question:'She is _____ honest student in our class.',
-accepted:['an']
-},
+{type:'text',question:'Please sit ___ your chair.',accepted:['on']},
 
-{
-type:'text',
-question:'My father _____ tea every morning.',
-accepted:['drinks']
-},
+{type:'text',question:'Water ___ at 100°C.',accepted:['boils']},
 
-{
-type:'text',
-question:'The cat jumped _____ the wall.',
-accepted:['over']
-},
+{type:'text',question:'This is ___ pencil. (belongs to me)',accepted:['my']},
 
-{
-type:'text',
-question:'Ravi is the _____ boy in his family.',
-accepted:['youngest']
-},
+{type:'text',question:'Ravi and I are friends. ___ play football together.',accepted:['we']},
 
-{
-type:'text',
-question:'The teacher asked us _____ our books quietly.',
-accepted:['to open']
-},
+{type:'text',question:'You ___ wear a seat belt while driving.',accepted:['must']},
 
-{
-type:'text',
-question:'It _____ heavily throughout the night yesterday.',
-accepted:['rained']
-},
+{type:'text',question:'The teacher asked us ___ listen carefully.',accepted:['to']},
 
-{
-type:'text',
-question:'The Earth _____ around the Sun.',
-accepted:['revolves']
-},
+{type:'text',question:'I was tired, ___ I went to bed early.',accepted:['so']},
 
 /* ===========================
-   21–30 ONE-WORD VOCABULARY
+   21–30 VOCABULARY
+   (ONE CORRECT ANSWER)
 =========================== */
 
-{
-type:'text',
-question:'A person who paints pictures is called an ______.',
-accepted:['artist']
-},
+{type:'text',question:'A person who designs buildings is an ______.',accepted:['architect']},
 
-{
-type:'text',
-question:'The opposite of noisy is ______.',
-accepted:['quiet']
-},
+{type:'text',question:'A book of maps is called an ______.',accepted:['atlas']},
 
-{
-type:'text',
-question:'A person who teaches in a school is a ______.',
-accepted:['teacher']
-},
+{type:'text',question:'A person who repairs shoes is a ______.',accepted:['cobbler']},
 
-{
-type:'text',
-question:'A book of maps is called an ______.',
-accepted:['atlas']
-},
+{type:'text',question:'A doctor who treats animals is a ______.',accepted:['veterinarian']},
 
-{
-type:'text',
-question:'To move quickly on foot is to ______.',
-accepted:['run']
-},
+{type:'text',question:'A person who grows crops is a ______.',accepted:['farmer']},
 
-{
-type:'text',
-question:'A person who repairs shoes is a ______.',
-accepted:['cobbler']
-},
+{type:'text',question:'A person who writes books is an ______.',accepted:['author']},
 
-{
-type:'text',
-question:'The opposite of difficult is ______.',
-accepted:['easy']
-},
+{type:'text',question:'A person who cuts men\\'s hair is a ______.',accepted:['barber']},
 
-{
-type:'text',
-question:'A large area covered with trees is called a ______.',
-accepted:['forest']
-},
+{type:'text',question:'A scientist who studies stars is an ______.',accepted:['astronomer']},
 
-{
-type:'text',
-question:'A person who grows crops is a ______.',
-accepted:['farmer']
-},
+{type:'text',question:'A person who paints pictures is an ______.',accepted:['artist']},
 
-{
-type:'text',
-question:'The word meaning “very brave” is ______.',
-accepted:['courageous']
-}
+{type:'text',question:'A person who flies an aeroplane is a ______.',accepted:['pilot']},
+
+/* ===========================
+   31–80 SPEED MATHS
+=========================== */
+
+/* Addition */
+
+{type:'number',question:'27 + 15 = ?',answer:42},
+{type:'number',question:'48 + 36 = ?',answer:84},
+{type:'number',question:'125 + 74 = ?',answer:199},
+{type:'number',question:'69 + 28 = ?',answer:97},
+{type:'number',question:'144 + 56 = ?',answer:200},
+{type:'number',question:'215 + 89 = ?',answer:304},
+{type:'number',question:'38 + 47 = ?',answer:85},
+{type:'number',question:'92 + 18 = ?',answer:110},
+{type:'number',question:'173 + 26 = ?',answer:199},
+{type:'number',question:'56 + 39 = ?',answer:95},
+{type:'number',question:'84 + 17 = ?',answer:101},
+{type:'number',question:'305 + 44 = ?',answer:349},
+{type:'number',question:'199 + 101 = ?',answer:300},
+
+/* Subtraction */
+
+{type:'number',question:'18 - 9 = ?',answer:9},
+{type:'number',question:'45 - 17 = ?',answer:28},
+{type:'number',question:'99 - 29 = ?',answer:70},
+{type:'number',question:'120 - 38 = ?',answer:82},
+{type:'number',question:'250 - 95 = ?',answer:155},
+{type:'number',question:'86 - 48 = ?',answer:38},
+{type:'number',question:'500 - 175 = ?',answer:325},
+{type:'number',question:'63 - 27 = ?',answer:36},
+{type:'number',question:'340 - 160 = ?',answer:180},
+{type:'number',question:'91 - 56 = ?',answer:35},
+{type:'number',question:'800 - 275 = ?',answer:525},
+{type:'number',question:'72 - 19 = ?',answer:53},
+{type:'number',question:'150 - 68 = ?',answer:82},
+
+/* Multiplication */
+
+{type:'number',question:'6 × 8 = ?',answer:48},
+{type:'number',question:'7 × 9 = ?',answer:63},
+{type:'number',question:'12 × 11 = ?',answer:132},
+{type:'number',question:'15 × 6 = ?',answer:90},
+{type:'number',question:'14 × 8 = ?',answer:112},
+{type:'number',question:'13 × 7 = ?',answer:91},
+{type:'number',question:'9 × 12 = ?',answer:108},
+{type:'number',question:'16 × 5 = ?',answer:80},
+{type:'number',question:'18 × 4 = ?',answer:72},
+{type:'number',question:'25 × 8 = ?',answer:200},
+{type:'number',question:'17 × 3 = ?',answer:51},
+{type:'number',question:'19 × 6 = ?',answer:114},
+
+/* Division */
+
+{type:'number',question:'26 ÷ 2 = ?',answer:13},
+{type:'number',question:'99 ÷ 3 = ?',answer:33},
+{type:'number',question:'144 ÷ 12 = ?',answer:12},
+{type:'number',question:'84 ÷ 7 = ?',answer:12},
+{type:'number',question:'96 ÷ 8 = ?',answer:12},
+{type:'number',question:'120 ÷ 10 = ?',answer:12},
+{type:'number',question:'180 ÷ 9 = ?',answer:20},
+{type:'number',question:'132 ÷ 11 = ?',answer:12},
+{type:'number',question:'72 ÷ 6 = ?',answer:12},
+{type:'number',question:'225 ÷ 15 = ?',answer:15},
+{type:'number',question:'156 ÷ 12 = ?',answer:13},
+{type:'number',question:'240 ÷ 8 = ?',answer:30}
 
 ];
 
