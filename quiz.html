@@ -3,159 +3,167 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Maths & English Challenge</title>
+<title>Daily Maths & English Quiz</title>
 
 <style>
-*{box-sizing:border-box}
+*{
+    box-sizing:border-box;
+}
 
 body{
     margin:0;
     font-family:Arial,Helvetica,sans-serif;
-    background:linear-gradient(135deg,#e8f4ff,#fff7e6);
+    background:linear-gradient(135deg,#eaf4ff,#fff8ea);
     color:#222;
-    min-height:100vh;
 }
 
 .container{
-    max-width:850px;
+    max-width:900px;
     margin:auto;
     padding:15px;
 }
 
 .card{
-    background:#fff;
-    border-radius:20px;
+    background:white;
+    border-radius:18px;
     padding:24px;
-    margin:15px 0;
-    box-shadow:0 5px 20px rgba(0,0,0,.12);
-}
-
-.header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:10px;
-    flex-wrap:wrap;
+    margin:20px 0;
+    box-shadow:0 6px 18px rgba(0,0,0,.15);
 }
 
 h1{
-    font-size:clamp(27px,6vw,38px);
-    margin:5px 0;
+    margin:0;
+    color:#1565c0;
 }
 
-.small{color:#666;}
+.subtitle{
+    color:#666;
+    margin-top:6px;
+    margin-bottom:18px;
+}
 
 .section{
     display:inline-block;
-    padding:7px 12px;
+    background:#dbeafe;
+    color:#0f4fa8;
+    padding:6px 12px;
     border-radius:20px;
-    background:#eee;
     font-weight:bold;
-    margin:12px 0;
 }
 
 .progress{
+    margin-top:12px;
+    color:#555;
     font-weight:bold;
-    margin:10px 0 18px;
 }
 
 .question{
-    font-size:clamp(19px,4vw,25px);
-    line-height:1.55;
-    margin:20px 0;
+    margin:22px 0;
+    font-size:24px;
+    line-height:1.6;
 }
 
 input{
     width:100%;
     padding:14px;
     font-size:20px;
-    border:2px solid #aaa;
+    border:2px solid #bbb;
     border-radius:10px;
-    margin:8px 0 12px;
 }
 
 button{
-    border:0;
+    width:100%;
+    border:none;
     border-radius:10px;
-    padding:13px 20px;
-    font-size:17px;
+    padding:14px;
+    font-size:18px;
     font-weight:bold;
     cursor:pointer;
-    margin-top:8px;
+    margin-top:12px;
 }
 
-.primary{
-    background:#2878d4;
+#checkBtn{
+    background:#1976d2;
     color:white;
-    width:100%;
 }
 
-.next{
+#nextBtn{
     background:#333;
     color:white;
-    width:100%;
 }
 
-.dashboard{
-    background:#777;
+#dashboardBtn{
+    background:#607d8b;
     color:white;
 }
 
-button:disabled,
-input:disabled{
-    opacity:.5;
+button:disabled{
+    opacity:.45;
     cursor:not-allowed;
 }
 
 .feedback{
     display:none;
-    margin:16px 0;
-    padding:15px;
-    border-radius:12px;
-    font-size:19px;
+    padding:14px;
+    margin-top:14px;
+    border-radius:10px;
+    font-size:18px;
     font-weight:bold;
 }
 
 .correct{
-    background:#e4f8e8;
-    color:#14752c;
+    background:#e7f8ea;
+    color:#187a2f;
 }
 
 .wrong{
-    background:#fff0e8;
-    color:#b23b10;
+    background:#fff1ec;
+    color:#b23c12;
 }
 
 .score{
     text-align:center;
-    font-size:32px;
+    font-size:34px;
     font-weight:bold;
-    margin:20px;
+    color:#1565c0;
+    margin:20px 0;
 }
 
 .review{
+    border:1px solid #ddd;
+    border-radius:10px;
     padding:14px;
     margin:12px 0;
-    border-radius:10px;
-    border:1px solid #ddd;
     line-height:1.5;
 }
 
 .right{
-    background:#f2fff4;
-    border-left:7px solid #28a745;
+    border-left:6px solid #22c55e;
+    background:#f4fff5;
 }
 
 .incorrect{
-    background:#fff5f5;
-    border-left:7px solid #dc3545;
+    border-left:6px solid #ef4444;
+    background:#fff6f6;
 }
 
 @media(max-width:600px){
-    .container{padding:8px;}
-    .card{padding:18px;}
+
+.question{
+    font-size:20px;
+}
+
+input{
+    font-size:18px;
+}
+
+button{
+    font-size:17px;
+}
+
 }
 </style>
+
 </head>
 
 <body>
@@ -164,17 +172,17 @@ input:disabled{
 
 <div id="quizScreen" class="card">
 
-<div class="header">
-<div>
-<h1>🧠 Maths & English Challenge</h1>
-<div class="small">380 Questions • Maths • Comprehension • Vocabulary</div>
+<h1>🧠 Daily Maths & English Quiz</h1>
+
+<div class="subtitle">
+80 Questions • Maths • Grammar • Vocabulary • Speed Maths
 </div>
 
-<button class="dashboard" onclick="goDashboard()">
-Dashboard
+<button id="dashboardBtn" onclick="showDashboard()">
+📊 Dashboard
 </button>
 
-</div>
+<br><br>
 
 <div id="section" class="section"></div>
 
@@ -182,16 +190,15 @@ Dashboard
 
 <div id="question" class="question"></div>
 
-<label><strong>Your answer:</strong></label>
+<label><b>Your Answer</b></label>
 
 <input
 id="answer"
 type="text"
-placeholder="Type your answer">
+placeholder="Type your answer here">
 
 <button
 id="checkBtn"
-class="primary"
 onclick="checkAnswer()">
 Check Answer
 </button>
@@ -200,7 +207,6 @@ Check Answer
 
 <button
 id="nextBtn"
-class="next"
 onclick="nextQuestion()"
 disabled>
 Next ➜
@@ -218,12 +224,11 @@ style="display:none">
 
 <script>
 
-
 const QUESTIONS = [
 
-/* ===========================
-   1–10 MATHS & LOGIC
-=========================== */
+/* ======================================================
+   1–10 MULTI-STEP MATHS & LOGICAL REASONING
+====================================================== */
 
 {type:'number',question:'A shop has 24 boxes with 18 chocolates in each box. It sells 156 chocolates. How many chocolates remain?',answer:276},
 
@@ -245,10 +250,10 @@ const QUESTIONS = [
 
 {type:'number',question:'A cricket player scores 45, 62, 51 and 58 runs. Find the average score.',answer:54},
 
-/* ===========================
+/* ======================================================
    11–20 ENGLISH GRAMMAR
-   (ONE CORRECT ANSWER)
-=========================== */
+   (ONE CORRECT ANSWER ONLY)
+====================================================== */
 
 {type:'text',question:'She bought ___ orange from the market.',accepted:['an']},
 
@@ -270,10 +275,9 @@ const QUESTIONS = [
 
 {type:'text',question:'I was tired, ___ I went to bed early.',accepted:['so']},
 
-/* ===========================
+/* ======================================================
    21–30 VOCABULARY
-   (ONE CORRECT ANSWER)
-=========================== */
+====================================================== */
 
 {type:'text',question:'A person who designs buildings is an ______.',accepted:['architect']},
 
@@ -295,9 +299,9 @@ const QUESTIONS = [
 
 {type:'text',question:'A person who flies an aeroplane is a ______.',accepted:['pilot']},
 
-/* ===========================
+/* ======================================================
    31–80 SPEED MATHS
-=========================== */
+====================================================== */
 
 /* Addition */
 
@@ -363,10 +367,9 @@ const QUESTIONS = [
 
 ];
 
-
-/* ===========================
+/* ======================================================
    QUIZ ENGINE
-=========================== */
+====================================================== */
 
 let currentQuestion = 0;
 let score = 0;
@@ -381,10 +384,7 @@ const checkBtn = document.getElementById("checkBtn");
 const nextBtn = document.getElementById("nextBtn");
 
 function normalise(text){
-    return text.toLowerCase()
-               .trim()
-               .replace(/[.,!?]/g,"")
-               .replace(/\s+/g," ");
+    return text.toLowerCase().trim().replace(/[.,!?]/g,"").replace(/\s+/g," ");
 }
 
 function loadQuestion(){
@@ -394,25 +394,27 @@ function loadQuestion(){
     if(currentQuestion < 10)
         sectionEl.innerHTML = "🔢 Maths & Logic";
     else if(currentQuestion < 20)
-        sectionEl.innerHTML = "📖 English Comprehension";
-    else
+        sectionEl.innerHTML = "📖 English Grammar";
+    else if(currentQuestion < 30)
         sectionEl.innerHTML = "📚 Vocabulary";
+    else
+        sectionEl.innerHTML = "⚡ Speed Maths";
 
     progressEl.innerHTML =
-        "Question " + (currentQuestion+1) + " of " + QUESTIONS.length;
+        "Question " + (currentQuestion + 1) + " of " + QUESTIONS.length;
 
     questionEl.innerHTML = q.question;
 
-    answerEl.value="";
-    answerEl.disabled=false;
+    answerEl.value = "";
+    answerEl.disabled = false;
 
-    checkBtn.disabled=false;
-    nextBtn.disabled=true;
+    checkBtn.disabled = false;
+    nextBtn.disabled = true;
 
-    feedbackEl.style.display="none";
+    feedbackEl.style.display = "none";
 
     nextBtn.innerHTML =
-        (currentQuestion===QUESTIONS.length-1)
+        (currentQuestion === QUESTIONS.length - 1)
         ? "Finish Quiz"
         : "Next ➜";
 }
@@ -422,18 +424,18 @@ function checkAnswer(){
     const q = QUESTIONS[currentQuestion];
     const user = answerEl.value.trim();
 
-    if(user===""){
+    if(user === ""){
         alert("Please enter an answer.");
         return;
     }
 
-    let correct=false;
+    let correct = false;
 
-    if(q.type==="number"){
-        correct = Number(user)===q.answer;
+    if(q.type === "number"){
+        correct = Number(user) === q.answer;
     }else{
         const u = normalise(user);
-        correct = q.accepted.some(a=>normalise(a)===u);
+        correct = q.accepted.some(a => normalise(a) === u);
     }
 
     userAnswers.push({
@@ -441,26 +443,28 @@ function checkAnswer(){
         correct:correct
     });
 
-    answerEl.disabled=true;
-    checkBtn.disabled=true;
+    answerEl.disabled = true;
+    checkBtn.disabled = true;
 
-    feedbackEl.style.display="block";
+    feedbackEl.style.display = "block";
 
     if(correct){
         score++;
-        feedbackEl.className="feedback correct";
-        feedbackEl.innerHTML="🎉 Congratulations! Your answer is correct.";
+        feedbackEl.className = "feedback correct";
+        feedbackEl.innerHTML =
+            "🎉 Congratulations! Your answer is correct.";
     }else{
-        feedbackEl.className="feedback wrong";
-        feedbackEl.innerHTML="😊 Better luck next time!";
+        feedbackEl.className = "feedback wrong";
+        feedbackEl.innerHTML =
+            "😊 Better luck next time!";
     }
 
-    nextBtn.disabled=false;
+    nextBtn.disabled = false;
 }
 
 function nextQuestion(){
 
-    if(currentQuestion < QUESTIONS.length-1){
+    if(currentQuestion < QUESTIONS.length - 1){
         currentQuestion++;
         loadQuestion();
     }else{
@@ -470,10 +474,10 @@ function nextQuestion(){
 
 function showResults(){
 
-    document.getElementById("quizScreen").style.display="none";
+    document.getElementById("quizScreen").style.display = "none";
 
     const result = document.getElementById("resultScreen");
-    result.style.display="block";
+    result.style.display = "block";
 
     saveAttempt();
 
@@ -487,48 +491,55 @@ function showResults(){
 
         const ua = userAnswers[index];
         const correct =
-            q.type==="number"
+            q.type === "number"
             ? q.answer
             : q.accepted[0];
 
+        let section = "";
+
+        if(index < 10)
+            section = "Maths & Logic";
+        else if(index < 20)
+            section = "English Grammar";
+        else if(index < 30)
+            section = "Vocabulary";
+        else
+            section = "Speed Maths";
+
         html += `
-        <div class="review ${ua.correct?'right':'incorrect'}">
+        <div class="review ${ua.correct ? 'right':'incorrect'}">
 
-        <b>Question ${index+1}</b><br><br>
+            <b>Question ${index+1}</b><br><br>
 
-        <b>${
-            index<10
-            ? 'Maths'
-            : index<20
-            ? 'Comprehension'
-            : 'Vocabulary'
-        }</b>
+            <b>${section}</b>
 
-        <p>${q.question}</p>
+            <p>${q.question}</p>
 
-        Your answer:
-        <b>${ua.answer}</b><br>
+            Your answer:
+            <b>${ua.answer}</b><br>
 
-        Correct answer:
-        <b>${correct}</b><br><br>
+            Correct answer:
+            <b>${correct}</b><br><br>
 
-        ${ua.correct?'✅ Correct':'❌ Wrong'}
+            ${ua.correct ? '✅ Correct':'❌ Wrong'}
 
         </div>`;
     });
 
     html += `
-    <button class="primary"
+        <button
+            class="primary"
             onclick="location.reload()">
-        Attempt Again
-    </button>`;
+            Attempt Again
+        </button>
+    `;
 
     result.innerHTML = html;
 }
 
-/* ===========================
+/* ======================================================
    DASHBOARD
-=========================== */
+====================================================== */
 
 function saveAttempt(){
 
@@ -549,50 +560,68 @@ function saveAttempt(){
     );
 }
 
-function goDashboard(){
+function showDashboard(){
 
     const data =
-      JSON.parse(localStorage.getItem("quizAttempts") || "[]");
+        JSON.parse(localStorage.getItem("quizAttempts") || "[]");
 
-    if(data.length===0){
+    if(data.length === 0){
         alert("No quiz attempts yet.");
         return;
     }
 
-    let msg = "QUIZ DASHBOARD\n\n";
+    let text = "📊 QUIZ DASHBOARD\n\n";
 
-    const grouped={};
+    const grouped = {};
 
     data.forEach(a=>{
-        if(!grouped[a.date]) grouped[a.date]=[];
+        if(!grouped[a.date])
+            grouped[a.date] = [];
+
         grouped[a.date].push(a.score);
     });
 
-    Object.keys(grouped).sort().reverse().forEach(d=>{
-        msg += d + "  (" + grouped[d].length + " attempt(s))\n";
+    Object.keys(grouped)
+        .sort()
+        .reverse()
+        .forEach(date=>{
 
-        grouped[d].forEach((s,i)=>{
-            msg += "   Attempt " + (i+1) +
-                   " : " + s + "/30\n";
+        text += date + "  (" +
+                grouped[date].length +
+                " attempt(s))\n";
+
+        grouped[date].forEach((score,index)=>{
+
+            text += "   Attempt " +
+                    (index+1) +
+                    " : " +
+                    score +
+                    "/" +
+                    QUESTIONS.length +
+                    "\n";
         });
 
-        msg += "\n";
+        text += "\n";
     });
 
-    alert(msg);
+    alert(text);
 }
 
-/* ===========================
-   START QUIZ
-=========================== */
+/* ======================================================
+   ENTER KEY SUPPORT
+====================================================== */
 
 answerEl.addEventListener("keydown",function(e){
 
-    if(e.key==="Enter" && !checkBtn.disabled){
+    if(e.key === "Enter" && !checkBtn.disabled){
         checkAnswer();
     }
 
 });
+
+/* ======================================================
+   START
+====================================================== */
 
 loadQuestion();
 
