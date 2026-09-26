@@ -6,28 +6,26 @@
 <title>Daily Maths & English Quiz</title>
 
 <style>
-*{
-    box-sizing:border-box;
-}
+*{box-sizing:border-box;}
 
 body{
     margin:0;
     font-family:Arial,Helvetica,sans-serif;
-    background:linear-gradient(135deg,#eaf4ff,#fff8ea);
+    background:linear-gradient(135deg,#e8f4ff,#fff8ea);
     color:#222;
 }
 
 .container{
-    max-width:900px;
+    max-width:920px;
     margin:auto;
     padding:15px;
 }
 
 .card{
-    background:white;
+    background:#fff;
     border-radius:18px;
     padding:24px;
-    margin:20px 0;
+    margin:18px 0;
     box-shadow:0 6px 18px rgba(0,0,0,.15);
 }
 
@@ -38,29 +36,28 @@ h1{
 
 .subtitle{
     color:#666;
-    margin-top:6px;
-    margin-bottom:18px;
+    margin:8px 0 18px;
 }
 
 .section{
     display:inline-block;
     background:#dbeafe;
     color:#0f4fa8;
-    padding:6px 12px;
-    border-radius:20px;
+    padding:6px 14px;
+    border-radius:18px;
     font-weight:bold;
 }
 
 .progress{
     margin-top:12px;
-    color:#555;
     font-weight:bold;
+    color:#555;
 }
 
 .question{
-    margin:22px 0;
     font-size:24px;
     line-height:1.6;
+    margin:22px 0;
 }
 
 input{
@@ -112,8 +109,8 @@ button:disabled{
 }
 
 .correct{
-    background:#e7f8ea;
-    color:#187a2f;
+    background:#e8f8ec;
+    color:#16792d;
 }
 
 .wrong{
@@ -126,7 +123,7 @@ button:disabled{
     font-size:34px;
     font-weight:bold;
     color:#1565c0;
-    margin:20px 0;
+    margin:18px 0;
 }
 
 .review{
@@ -138,13 +135,13 @@ button:disabled{
 }
 
 .right{
+    background:#f3fff4;
     border-left:6px solid #22c55e;
-    background:#f4fff5;
 }
 
 .incorrect{
-    border-left:6px solid #ef4444;
     background:#fff6f6;
+    border-left:6px solid #ef4444;
 }
 
 @media(max-width:600px){
@@ -225,7 +222,6 @@ style="display:none">
 <script>
 
 const QUESTIONS = [
-
 /* ======================================================
    1–10 MULTI-STEP MATHS & LOGICAL REASONING
 ====================================================== */
@@ -252,7 +248,6 @@ const QUESTIONS = [
 
 /* ======================================================
    11–20 ENGLISH GRAMMAR
-   (ONE CORRECT ANSWER ONLY)
 ====================================================== */
 
 {type:'text',question:'She bought ___ orange from the market.',accepted:['an']},
@@ -291,7 +286,7 @@ const QUESTIONS = [
 
 {type:'text',question:'A person who writes books is an ______.',accepted:['author']},
 
-{type:'text',question:"A person who cuts men's hair is a ______.",accepted:['barber']}
+{type:'text',question:"A person who cuts men's hair is a ______.",accepted:['barber']},
 
 {type:'text',question:'A scientist who studies stars is an ______.',accepted:['astronomer']},
 
@@ -300,21 +295,34 @@ const QUESTIONS = [
 {type:'text',question:'A person who flies an aeroplane is a ______.',accepted:['pilot']},
 
 /* ======================================================
-   31–80 SPEED MATHS
+   31–40 SPEED MATHS (ADDITION)
+====================================================== */
+
+{type:'number',question:'27 + 15 = ?',answer:42},
+
+{type:'number',question:'48 + 36 = ?',answer:84},
+
+{type:'number',question:'125 + 74 = ?',answer:199},
+
+{type:'number',question:'69 + 28 = ?',answer:97},
+
+{type:'number',question:'144 + 56 = ?',answer:200},
+
+{type:'number',question:'215 + 89 = ?',answer:304},
+
+{type:'number',question:'38 + 47 = ?',answer:85},
+
+{type:'number',question:'92 + 18 = ?',answer:110},
+
+{type:'number',question:'173 + 26 = ?',answer:199},
+
+{type:'number',question:'56 + 39 = ?',answer:95},
+/* ======================================================
+   41–80 SPEED MATHS
 ====================================================== */
 
 /* Addition */
 
-{type:'number',question:'27 + 15 = ?',answer:42},
-{type:'number',question:'48 + 36 = ?',answer:84},
-{type:'number',question:'125 + 74 = ?',answer:199},
-{type:'number',question:'69 + 28 = ?',answer:97},
-{type:'number',question:'144 + 56 = ?',answer:200},
-{type:'number',question:'215 + 89 = ?',answer:304},
-{type:'number',question:'38 + 47 = ?',answer:85},
-{type:'number',question:'92 + 18 = ?',answer:110},
-{type:'number',question:'173 + 26 = ?',answer:199},
-{type:'number',question:'56 + 39 = ?',answer:95},
 {type:'number',question:'84 + 17 = ?',answer:101},
 {type:'number',question:'305 + 44 = ?',answer:349},
 {type:'number',question:'199 + 101 = ?',answer:300},
@@ -366,10 +374,6 @@ const QUESTIONS = [
 {type:'number',question:'240 ÷ 8 = ?',answer:30}
 
 ];
-
-/* ======================================================
-   QUIZ ENGINE
-====================================================== */
 
 let currentQuestion = 0;
 let score = 0;
@@ -528,13 +532,26 @@ function showResults(){
 
     html += `
         <button
-            class="primary"
+            id="restartBtn"
             onclick="location.reload()">
             Attempt Again
         </button>
     `;
 
     result.innerHTML = html;
+
+    const restartBtn = document.getElementById("restartBtn");
+    if(restartBtn){
+        restartBtn.style.background = "#1976d2";
+        restartBtn.style.color = "white";
+        restartBtn.style.width = "100%";
+        restartBtn.style.padding = "14px";
+        restartBtn.style.border = "none";
+        restartBtn.style.borderRadius = "10px";
+        restartBtn.style.fontSize = "18px";
+        restartBtn.style.fontWeight = "bold";
+        restartBtn.style.cursor = "pointer";
+    }
 }
 
 /* ======================================================
@@ -586,13 +603,13 @@ function showDashboard(){
         .reverse()
         .forEach(date=>{
 
-        text += date + "  (" +
+        text += date + " (" +
                 grouped[date].length +
                 " attempt(s))\n";
 
         grouped[date].forEach((score,index)=>{
 
-            text += "   Attempt " +
+            text += "  Attempt " +
                     (index+1) +
                     " : " +
                     score +
@@ -620,7 +637,7 @@ answerEl.addEventListener("keydown",function(e){
 });
 
 /* ======================================================
-   START
+   START QUIZ
 ====================================================== */
 
 loadQuestion();
